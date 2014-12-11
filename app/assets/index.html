@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Projet B SNCF</title>
+	<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+	<header class="Header">
+		<div class="Header-content _col6">
+			<img class="Header-logo" src="img/logoSNCF.svg" align="left" alt="logo SNCF">
+			<p class="Header-stationName" id="station-name"></p>
+		</div>
+		<div class="Header-content _col6">
+			<ul class="Header-detailStation">
+				<li class="DetailStation">
+					<div class="DetailStation-number" id="nbr-crowds"></div>
+					<div class="DetailStation-text">VOYAGEURS EN MOYENNE</div>
+				</li>
+				<li class="DetailStation">
+					<div class="DetailStation-number" id="nbr-automatesells"></div>
+					<div class="DetailStation-text">€ DE VENTES EN MACHINE</div>
+				</li>
+				<li class="DetailStation">
+					<div class="DetailStation-number" id="nbr-ticketwindowsells"></div>
+					<div class="DetailStation-text">€ DE VENTES EN GUICHES</div>
+				</li>
+				<li class="DetailStation">
+					<div class="DetailStation-number" id="nbr-missions">XX</div>
+					<div class="DetailStation-text" id="mission-type">MISSIONS RESTANTES</div>
+				</li>
+			</ul>
+		</div>
+	</header>
+
+	<section class="Dashboard">
+		<div class="Dashboard-content">
+			<div class="Dashboard-wrapper" id="dashboard-wrapper">
+				<div class="Dashboard-taux Taux" id="taux">
+					<p class="Taux-details">Ventes totals / jours</p>
+					<p class="Taux-max"><span id="max-sells"></span> euros</p>
+				</div>
+				<!-- div.Dashboard-gauge.Gauge*30>div.Gauge-gauge+(div.Gauge-date.Date>div.Date-day{MAR}+div.Date-number{0$}) -->
+			</div>
+
+		</div>
+	</section>
+
+	<div class="Popup hide hidden" id="popup-connexion">
+		<div class="Popup-backdrop"></div>
+		<div class="Popup-content">
+			<h2 class="Popup-title">Bienvenue</h2>
+			<form class="Popup-form Form" onSubmit="return false">
+				<ul class="Form-errors" id="form-error"></ul>
+				<div class="Form-group">
+					<label for="agentname" class="Form-label">Votre nom d'agent :</label>
+					<input name="agentname" type="text" class="Form-input">
+				</div>
+			</form>
+			<div class="StationSelection">
+				<div class="StationSelection-autocompleteZone" id="autocomplete-station"></div>
+				<button class="StationSelection-button Button">OK</button>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+	<script type="text/javascript">require('js/main')</script>
+</body>
+</html>

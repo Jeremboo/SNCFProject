@@ -1,0 +1,20 @@
+@import "../base/variables";
+
+.Form {
+
+	&-errors {
+
+	} 
+
+	&-group {
+		padding: 5px 15px;
+	}
+
+	&-label {
+		display: block;
+	}
+
+	&-input {
+		width: 100%;
+	}
+}

@@ -1,0 +1,11 @@
+@import "../base/variables";
+
+.Button {
+	cursor: pointer;
+	border: 0;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	font-weight: bold;
+	color : $white;
+}

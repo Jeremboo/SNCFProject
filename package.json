@@ -1,0 +1,28 @@
+{
+  "name": "your-app",
+  "description": "Description",
+  "author": "Your Name",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "scripts": {
+    "start": "brunch watch --server",
+    "test": "brunch test"
+  },
+  "dependencies": {
+    "auto-reload-brunch": ">= 1.0 < 1.8",
+    "body-parser": "^1.9.2",
+    "clean-css-brunch": ">= 1.0 < 1.8",
+    "css-brunch": ">= 1.0 < 1.8",
+    "express": "^4.10.1",
+    "javascript-brunch": ">= 1.0 < 1.8",
+    "mongodb": "^1.4.19",
+    "mongoose": "^3.8.18",
+    "sass-brunch": "^1.8.7",
+    "socket.io": "^1.2.0",
+    "uglify-js-brunch": ">= 1.0 < 1.8",
+    "underscore": "^1.7.0"
+  }
+}

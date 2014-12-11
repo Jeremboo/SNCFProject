@@ -1,0 +1,122 @@
+@import "../base/variables";
+@import "../base/mixins";
+
+.Dashboard {
+	position : absolute;
+	width : 100%;
+	height : 100%;
+	z-index : -1;
+
+	&-content {
+		position : relative;
+		width : 100%;
+		height : 100%;
+		max-width : 2000px;
+		margin : auto;
+		overflow : hidden;
+	}
+
+	&-wrapper {
+		width: 92%;
+		height: 100%;
+		margin: auto;
+	}
+
+	&-taux {
+		width: 1px;
+		background-color: white;
+		height: $gaugeHeight;
+		position: absolute;
+		bottom: $gaugeBottom;
+	}
+
+	&-gauge {
+		float : left;
+		width : $gaugeWidth;
+		height : 100%;
+	}
+}
+
+.Taux {
+	color: white;
+	font-size: 0.8em;
+	opacity: 0;
+
+	&-details {
+		@include rotate(-90);
+		position: absolute;
+		width: 150px;
+		right: -63px;
+		bottom: 60px;
+	}
+
+	&-max {
+		position: absolute;
+		margin: 0;
+		width: 100px;
+		top: -20px;
+		left: -45px;
+		text-align: center;
+	}
+}
+
+.Gauge {
+	position: relative;
+	border: 0 solid $purple;
+	@include transition(background-color .2s ease-out, border .4s ease-out);
+
+	&:hover{
+		background-color: $lightPurple;
+	}
+
+	&-wrapper {
+		opacity: 0;
+		position: absolute;
+		width: 50%;
+		height: $gaugeHeight;
+		margin-left: 25%;
+		bottom: $gaugeBottom;
+	}
+
+	&-gauge {
+		position: absolute;
+		width: 100%;
+		background-color: $white;
+		bottom: 0;
+	}
+
+	&-date {
+		position: absolute;
+		width: 100%;
+		padding: 5px 0;
+		bottom: 5px;
+	}
+
+	&.opened {
+		background-color: $lightPurple;
+		border-right : 50px solid $lightPurple;
+	}
+
+	&.hold {
+		opacity: 0.5;
+	}
+}
+
+.Date {
+	opacity: 0;
+	color: $white;
+	text-align: center;
+
+	& > div {
+		width: 100%;
+	}
+
+	&-day{
+		text-transform: uppercase;
+		font-size: 0.5em;
+	}
+	&.today {
+		color: $purple;
+		background-color: $white;
+	}
+}

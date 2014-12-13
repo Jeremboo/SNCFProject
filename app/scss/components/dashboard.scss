@@ -67,6 +67,11 @@
 
 	&:hover{
 		background-color: $lightPurple;
+
+		.Gauge-infos:not(.opened) {
+			opacity: 1;
+			margin-left: 50px;
+		}
 	}
 
 	&-wrapper {
@@ -77,6 +82,14 @@
 		margin-left: 25%;
 		bottom: $gaugeBottom;
 	}
+
+	&-infos {
+		width: 200px;
+		margin-top: 70px;
+		opacity: 0;
+		@include transition(opacity .2s ease-out, margin .4s ease-out);
+	}
+
 
 	&-gauge {
 		position: absolute;
@@ -118,5 +131,46 @@
 	&.today {
 		color: $purple;
 		background-color: $white;
+	}
+}
+
+.Infos {
+	color: $white;
+
+	&-over {
+		width: 100%;
+	}
+
+	&-over.hide {
+		display: none;
+	}
+
+	&-wrapper {
+		width: 100%;
+		margin: 15px 0;
+
+	}
+
+	&-wrapper.hide {
+		overflow: hidden;
+		@include animation(0s, 0.8s, fadeout);
+	}
+
+	&-number {
+		font-size: 2em;
+	}
+
+	&-text {
+		text-transform: uppercase;
+	}
+
+	&.opened {
+		opacity: 1;
+		margin-left: 10px;
+
+		/* .Infos-wrapper:first-child {
+			overflow: hidden;
+			@include animation(0s, 0.8s, fadeout);
+		} */
 	}
 }

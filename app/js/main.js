@@ -70,7 +70,7 @@ function showGlobalDatas(station){
 			content.taux.className += " fadeInUp animated"; 
 
 			//Création des jauges et mise en place dans le Dom 'invisible'
-			dashboard.insertGauges(datas.board);
+			dashboard.createDashboard(datas.board);
 
 			dashboard.showDashboard();
 
@@ -88,10 +88,9 @@ function showGlobalDatas(station){
 				content.maxSells.innerHTML = datas.board.maxSells;
 				content.taux.className += " fadeInUp animated";
 
-				//Affichage des jauges
+				//Affichage des jauges & ouverture de la première gauge
 				dashboard.showDashboard();
 
-				//Ouverture de la jauge de la journée
 
 
 

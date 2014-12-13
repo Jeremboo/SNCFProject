@@ -7,20 +7,31 @@ function EventHandling(){
 /*
  * Ajoute un écouteur d'évènement de fin de TransitionCSS sur l'élément envoyé   
  */
-EventHandling.prototype.addTransitionendEvent = function(element, fct){
+EventHandling.prototype.addTransitionendEvent = function(element, fct, once){
 
 	//'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend'
+	once = false || once;
 
 	if('transitionend' in document.documentElement){
-		element.addEventListener('transitionend',function(e){
-			fct(e)
-		},false);
+		this.addEvent(element, 'transitionend', once, fct);
 	} else {
 		console.warn("Your navigator may be not support transitionend event");
-		element.addEventListener('webkitTransitionEnd',function(e){
-			fct(e)
-		},false);
+		this.addEvent(element, 'webkitTransitionEnd', once, fct);
 	}
+};
+
+
+/* ##########
+	PRIVATE
+	######### */
+
+EventHandling.prototype.addEvent = function(node, type, once, callback){
+	node.addEventListener(type, function(e){
+		if(once){
+			e.target.removeEventListener(e.type, arguments.callee);
+		}
+		return callback(e);
+	},false)
 };
 
 

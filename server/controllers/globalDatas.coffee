@@ -101,8 +101,8 @@ class GlobalDatas
             json = {
                 day : dayInPeriod,
                 dirsProblems : dirsProblemsOfDay,
-                automateSells : automateSells.sum,
-                ticketWindowSells : ticketWindowSells.sum
+                automateSells : Math.round(automateSells.sum),
+                ticketWindowSells : Math.round(ticketWindowSells.sum)
             }
 
             @dashBoard.datasByDays.push json

@@ -24,9 +24,9 @@ var dashboard = new Dashboard(content.dashboardWrapper, today);
 /* Recupération de la liste des gares */
 request.post({url : URL+_STATIONS}, function(err, datas){
 
-	//showGlobalDatas("CHELLES GOURNAY");
+	showGlobalDatas("CHELLES GOURNAY");
 
-	if(datas){
+	/*if(datas){
 
 		popUpConnexion.showPopUp();
 
@@ -37,7 +37,7 @@ request.post({url : URL+_STATIONS}, function(err, datas){
 
 	} else {
 		console.log(err);
-	}
+	}*/
 });
 
 /*
@@ -72,7 +72,7 @@ function showGlobalDatas(station){
 			//Création des jauges et mise en place dans le Dom 'invisible'
 			dashboard.createDashboard(datas.board);
 
-			//dashboard.showDashboard();
+			dashboard.showDashboard();
 
 
 			// 

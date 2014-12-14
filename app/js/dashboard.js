@@ -10,7 +10,7 @@ function Dashboard(content, today){
 	this.days = [];
 	this.gauges = [];
 	this.numberOfTodaysGauge = -1;
-	this.gaugeOpened = false;
+	this.openGauge = false;
 	this.DOMGauges = false;
 	this.DOMDates = false;
 }
@@ -56,10 +56,10 @@ Dashboard.prototype.showDashboard = function(nbrRemaining){
 
 	nbrRemaining = nbrRemaining || 0;
 
-	this.gauges[nbrRemaining].addEvents(this.DOMGauges[nbrRemaining].parentNode,function(openedGauge){
-		if(that.gaugeOpened)
-			that.gaugeOpened.close();
-		that.gaugeOpened = openedGauge;
+	this.gauges[nbrRemaining].addEvents(this.DOMGauges[nbrRemaining].parentNode,function(openGauge){
+		if(that.openGauge)
+			that.openGauge.close();
+		that.openGauge = openGauge;
 		for( i = 0, j = content.detailsStation.length ; i < j ; i++){
 			content.detailsStation[i].classList.remove('fadeInRight');
 			content.detailsStation[i].classList.remove('animated');
@@ -94,12 +94,20 @@ Dashboard.prototype.showDashboard = function(nbrRemaining){
 Dashboard.prototype.searchPreventiveActions = function(gauge, callback){
 
 	//TODO : faire les test qui permettent de définir quelles actions sont possibles et quand
-	var dirsProblems = gauge.getDirsProblems();
 
+	var dirsProblems = gauge.getDirsProblems();
 	if(dirsProblems.length > 0){
-		console.log("One Dir Problem")
-		this.addAction(gauge, 'actionTest', 5);
+		this.addAction(gauge, 'dirs problem', 5);
 	}
+
+	if(Math.random() > 0.5){
+		this.addAction(gauge, 'Action random', 2);
+	}
+
+	if(Math.random() > 0.5){
+		this.addAction(gauge, 'Action random 2', 3);
+	}
+
 	callback();
 };
 
@@ -116,8 +124,8 @@ Dashboard.prototype.openGaugeForToday = function(){
 
 	var that = this;
 
-	this.gauges[this.numberOfTodaysGauge].open(function(openedGauge){
-		that.gaugeOpened = openedGauge;
+	this.gauges[this.numberOfTodaysGauge].open(function(openGauge){
+		that.openGauge = openGauge;
 		that.showDetailsValues();
 	});
 };

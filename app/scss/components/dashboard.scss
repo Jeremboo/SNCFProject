@@ -137,6 +137,11 @@
 .Infos {
 	color: $white;
 
+	&.opened {
+		opacity: 1;
+		margin-left: 10px;
+	}
+
 	&-over {
 		width: 100%;
 	}
@@ -163,14 +168,28 @@
 	&-text {
 		text-transform: uppercase;
 	}
+}
 
-	&.opened {
-		opacity: 1;
-		margin-left: 10px;
+.Mission {
+	opacity: 0;
+	margin-bottom: 6px;
 
-		/* .Infos-wrapper:first-child {
-			overflow: hidden;
-			@include animation(0s, 0.8s, fadeout);
-		} */
+	&-name {
+		text-transform: uppercase;
+		background-color: transparent;
+		border: 0;
+		font-size: 0.7em;
+		opacity: 0.8;
+		@include transition(opacity .4s ease-out);
+
+		&:hover {
+			opacity: 1;
+		}
+
+		&:focus {
+			opacity: 1;
+			outline: 0;
+		}
 	}
+
 }

@@ -6,6 +6,7 @@ class GlobalDatas
     constructor : () ->
         @DirsProblems = require '../controllers/dirsProblem'
         @Sells = require '../controllers/sells'
+        @Crowds = require '../controllers/crowds'
         @period = 30
         @daysShowedBefore = 5
         @dashBoard = null
@@ -13,6 +14,7 @@ class GlobalDatas
         @dirsProblemsData = [] 
         @automateSellsData = []
         @ticketWindowSellsData = []
+        @crowdsPeriodData = []
 
     #
     # Retourne un JSON regroupant l'enssemble des données nessessaires à la génération du dashboard.
@@ -27,6 +29,7 @@ class GlobalDatas
 
         dirsProblems = new @DirsProblems
         sells = new @Sells
+        crowds = new @Crowds
 
         @dashBoard = {
             dateNow : date,
@@ -59,6 +62,14 @@ class GlobalDatas
                     console.log "TicketWindowSells loaded..."
                     @ticketWindowSellsData = ticketWindowSells
 
+                    ###crowds.getPeriodicalCrowds stationDetails.Gare, @firstDayAnalysed, @period, (err, crowdsPeriod) =>
+                        if err
+                            callback err
+                            return
+
+                        console.log "crowdsPeriod loaded..."+crowdsPeriod
+                        @crowdsPeriodData = crowdsPeriod###
+
                     console.log "Construction of Dashboard"
                     @aggregateForPeriod (board) ->
                         callback "", board
@@ -85,30 +96,34 @@ class GlobalDatas
                 date = new Date dir.date
                 return date.toDateString() == dayToDateString
 
+            ###crowdsData = _.find @crowdsPeriodData, (data) ->
+                date = new Date data.date
+                return date.toDateString() == dayToDateString###
+
+
             automateSells = { sum : -1 } if !automateSells
             ticketWindowSells = { sum : -1 } if !ticketWindowSells
+            #crowdsData = { crowds : -1 } if !crowdsData
 
-            #TODO : récupérer l'affluence en gare en fonction de datas.stationDetails.id & ajouter a datas.board[i] l'affluence
-            # http://anarchy.rayanmestiri.com:9009/ecs/SANN/20140307
-            ### for[i...datas.stationDetails.ids]
-                console.log ids
-            ###
 
             # prix de vente max
             totalSells = automateSells.sum+ticketWindowSells.sum
             @dashBoard.maxSells = totalSells if totalSells > @dashBoard.maxSells
 
+
             json = {
                 day : dayInPeriod,
                 dirsProblems : dirsProblemsOfDay,
                 automateSells : Math.round(automateSells.sum),
-                ticketWindowSells : Math.round(ticketWindowSells.sum)
+                ticketWindowSells : Math.round(ticketWindowSells.sum),
+                #crowds : crowdsData.crowds
             }
 
             @dashBoard.datasByDays.push json
 
             console.log dayInPeriod.toDateString()+" : "+automateSells.sum+" automateSells, "+
-            ticketWindowSells.sum+" ticketWindowSells, "+dirsProblemsOfDay.length+" dir pbrlms"
+            ticketWindowSells.sum+" ticketWindowSells, "+dirsProblemsOfDay.length+" dirs pbrlm, "
+            #+crowdsData.crowds+ " persons"
 
         callback @dashBoard
 

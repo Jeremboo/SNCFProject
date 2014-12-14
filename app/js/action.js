@@ -23,20 +23,19 @@ Action.prototype.createAction = function(){
 
 };
 
-Action.prototype.showAction = function(DOMMission){
+Action.prototype.addEvents = function(DOMMission){
 	this.DOMMission = DOMMission;
-	this.DOMMission.className += " fadeInLeft animated";
 	this.DOMMission.addEventListener('click',this.open);
 }
+
 
 Action.prototype.open = function(e) {
 	console.log("TODO");
 };
 
+
 Action.prototype.close = function() {
-	this.DOMMission.removeEventListener('click',this.open);
-	this.DOMMission.classList.remove('fadeInLeft');
-	this.DOMMission.classList.remove('animated');
+	//this.DOMMission.removeEventListener('click',this.open);
 };
 
 Action.prototype.addAction = function (type, ManyDaysBefore){

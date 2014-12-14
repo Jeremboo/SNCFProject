@@ -8,7 +8,7 @@ function Gauge(gaugeMax, datas){
 	this.gaugeMax = gaugeMax;
 	this.day = new Date(datas.day);
 	this.eventHandling = new EventHandling();
-	this.crowd = -9999;
+	this.crowds = datas.crowds;
 	this.automateSells = datas.automateSells;
 	this.ticketWindowSells = datas.ticketWindowSells;
 	this.dirsProblems = datas.dirsProblems;
@@ -30,7 +30,7 @@ Gauge.prototype.createGauge = function(type){
 	var DOMMissionsPres = "";
 	var totalSells = this.automateSells+this.ticketWindowSells;
 	//TODO : afficher les gauges en fonction de l'affluence et non du prix. 
-	var size = (totalSells/this.gaugeMax)*100;
+	var size = (this.crowds/this.gaugeMax)*100;
 
 	if(size < 0.5)
 		size = 0.5;
@@ -71,16 +71,28 @@ Gauge.prototype.createGauge = function(type){
 			'<div class="Gauge-gauge" style="height:'+size+'%"></div>'+
 		'</div>'+
 		'<div class="Gauge-infos Infos">'+
-			'<div class="Infos-wrapper">'+
-				'<div class="Infos-number">'+new Intl.NumberFormat().format(totalSells)+'</div>'+
-				'<div class="Infos-text">EUROS DE VENTES</div>'+
+			'<div class="Infos-hover animated">'+
+				'<div class="Infos-wrapper">'+
+					'<div class="Infos-number">'+new Intl.NumberFormat().format(this.crowds)+'</div>'+
+					'<div class="Infos-text">VOYAGEURS</div>'+
+				'</div>'+
+				'<div class="Infos-wrapper">'+
+					'<div class="Infos-number">'+new Intl.NumberFormat().format(totalSells)+'</div>'+
+					'<div class="Infos-text">EUROS DE VENTES</div>'+
+				'</div>'+
+				'<div class="Infos-wrapper">'+
+					'<div class="Infos-number">'+this.nbrOfMissions+'</div>'+
+					'<div class="Infos-text">'+this.nameOfMissions+'</div>'+
+				'</div>'+
 			'</div>'+
-			'<div class="Infos-wrapper">'+
-				'<div class="Infos-number">'+this.nbrOfMissions+'</div>'+
-				'<div class="Infos-text">'+this.nameOfMissions+'</div>'+
-			'</div>'+
-			'<div class="Infos-wrapper">'+
-				DOMMissionsPres+
+			'<div class="Infos-click hide animated">'+
+				'<div class="Infos-wrapper">'+
+					'<div class="Infos-number">'+this.nbrOfMissions+'</div>'+
+					'<div class="Infos-text">'+this.nameOfMissions+'</div>'+
+				'</div>'+
+				'<div class="Infos-wrapper">'+
+					DOMMissionsPres+
+				'</div>'+
 			'</div>'+
 		'</div>'+
 		'<div class="Gauge-date Date'+today+'">'+
@@ -91,27 +103,41 @@ Gauge.prototype.createGauge = function(type){
 }
 
 Gauge.prototype.addEvents = function(DOMGauge, showDetailsFct){
-	var that = this;
+
 	this.DOMGauge = DOMGauge;
-	DOMGauge.addEventListener('click',function(e){
+
+	var that = this;
+	var DOMMissions = this.DOMGauge.getElementsByClassName('Mission');
+
+	this.DOMGauge.addEventListener('click',function(e){
 		if(!that.opened)
 			that.open(showDetailsFct);
 	});
+
+	//Ecouteur sur les boutons missions
+	for (var i = 0; i < DOMMissions.length; i++) {
+		this.missionsShowed[i].addEvents(DOMMissions[i]);
+	};
+
 	//TODO bien faire la séparation de la gauge, si c'est une vieille ou une nouvelle pour ajouter les écouteurs.
 };
 
 Gauge.prototype.open = function(showDetailsFct){
+	var DOMInfo = this.DOMGauge.querySelector('.Infos');
+
 	this.opened = true;
 	this.DOMGauge.classList.add('opened');
-	this.DOMGauge.querySelector('.Infos').classList.add('opened');
-	this.DOMGauge.querySelector('.Infos-wrapper').classList.add('hide');
+	DOMInfo.classList.add('opened');
 
-	this.DOMMissions = this.DOMGauge.getElementsByClassName('Mission');
-	if(this.DOMMissions.length > 0){
-		this.showMissions();
-	}
+	DOMInfo.querySelector('.Infos-hover').classList.add('fadeOutLeft');
+	DOMInfo.querySelector('.Infos-click').classList.remove('hide');
+	DOMInfo.querySelector('.Infos-click').classList.add('fadeInRight');
 
-	content.nbrCrowds.innerHTML = new Intl.NumberFormat().format(this.crowd);
+	this.eventHandling.addTransitionendEvent(DOMInfo, function(e){
+		DOMInfo.querySelector('.Infos-hover').classList.add('hide');
+	}, true);	
+
+	content.nbrCrowds.innerHTML = new Intl.NumberFormat().format(this.crowds);
 	content.nbrAutomateSells.innerHTML = new Intl.NumberFormat().format(this.automateSells);
 	content.nbrTicketWindowSells.innerHTML = new Intl.NumberFormat().format(this.ticketWindowSells);
 	content.nbrMissions.innerHTML = this.nbrOfMissions;
@@ -127,11 +153,13 @@ Gauge.prototype.close = function(){
 	this.DOMGauge.classList.remove('opened');
 	DOMInfo.classList.remove('opened');
 	this.eventHandling.addTransitionendEvent(DOMInfo, function(e){
-		DOMInfo.querySelector('.Infos-wrapper').classList.remove('hide');
 
-		if(that.DOMMissions.length > 0){
-			that.closeMissions();	
-		}
+		DOMInfo.querySelector('.Infos-hover').classList.remove('fadeOutLeft');
+		DOMInfo.querySelector('.Infos-hover').classList.remove('hide');
+
+		DOMInfo.querySelector('.Infos-click').classList.remove('fadeInRight');
+		DOMInfo.querySelector('.Infos-click').classList.add('hide');
+
 	}, true);		
 }
 
@@ -154,24 +182,6 @@ Gauge.prototype.getDirsProblems = function() {
 /*
 	PRIVATE 
 */
-
-Gauge.prototype.showMissions = function(nbrRemaining){
-	var that = this;
-	nbrRemaining = nbrRemaining || this.DOMMissions.length;
-	nbrRemaining--;
-	this.missionsShowed[nbrRemaining].showAction(this.DOMMissions[nbrRemaining]);
-	if(nbrRemaining === 0)
-		return
-	setTimeout(function(){
-		that.showMissions(nbrRemaining);
-	},200);
-};
-
-Gauge.prototype.closeMissions = function() {
-	for (var i = 0; i < this.missionsShowed.length; i++) {
-		this.missionsShowed[i].close();
-	};
-};
 
 Gauge.prototype.selectDateName = function(day){
 	switch(day){

@@ -27,7 +27,7 @@ Dashboard.prototype.createDashboard = function(datas){
 
 	for( var i = 0, j = this.days.length ; i < j ; i++){
 		var that = this;
-		var gauge = new Gauge(datas.maxSells, this.days[i]);
+		var gauge = new Gauge(datas.maxCrowds, this.days[i]);
 
 		this.searchPreventiveActions(gauge, function(){
 
@@ -75,6 +75,7 @@ Dashboard.prototype.showDashboard = function(nbrRemaining){
 
 	if(nbrRemaining === this.gauges.length-1){
 		this.openGaugeForToday();
+		//TODO : n'activer les rollOver et les click qu'a ce moment la.
 		return
 	}
 	nbrRemaining++;

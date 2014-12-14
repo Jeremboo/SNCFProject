@@ -9,7 +9,6 @@ class Crowds
         
     getPeriodicalCrowds : (stationId, firstDay, period, callback) ->
 
-        @stationId = "SANN"
         @firstDay = firstDay
         @period = period
 

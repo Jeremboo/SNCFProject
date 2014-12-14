@@ -66,7 +66,7 @@ function showGlobalDatas(station){
 			console.log(datas);
 
 			//ajouter les détails de la jauge (ne fonctionne qu'avant l'insertion des gauges)
-			content.maxSells.innerHTML = datas.board.maxSells;
+			content.maxCrowds.innerHTML = datas.board.maxCrowds;
 			content.taux.className += " fadeInUp animated"; 
 
 			//Création des jauges et mise en place dans le Dom 'invisible'

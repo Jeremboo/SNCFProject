@@ -33,7 +33,7 @@ class GlobalDatas
 
         @dashBoard = {
             dateNow : date,
-            maxSells : -1,
+            maxCrowds : -1,
             datasByDays : []
         }
 
@@ -62,7 +62,8 @@ class GlobalDatas
                     console.log "TicketWindowSells loaded..."
                     @ticketWindowSellsData = ticketWindowSells
 
-                    crowds.getPeriodicalCrowds stationDetails.Gare, @firstDayAnalysed, @period, (err, crowdsPeriod) =>
+                    # TODO : Modifier la BDD pour ajouter les id aux  gares : stationDetails.id
+                    crowds.getPeriodicalCrowds "SANN", @firstDayAnalysed, @period, (err, crowdsPeriod) =>
                         if err
                             callback err
                             return
@@ -105,11 +106,8 @@ class GlobalDatas
             ticketWindowSells = { sum : -1 } if !ticketWindowSells
             crowdsData = { crowds : -1 } if !crowdsData
 
-
             # prix de vente max
-            totalSells = automateSells.sum+ticketWindowSells.sum
-            @dashBoard.maxSells = totalSells if totalSells > @dashBoard.maxSells
-
+            @dashBoard.maxCrowds = crowdsData.crowds if crowdsData.crowds > @dashBoard.maxCrowds
 
             json = {
                 day : dayInPeriod,

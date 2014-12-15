@@ -2,14 +2,8 @@ TODO
 
 VISUEL
 - ajouter la date actuelle a coté de la gare.
-- Faire différentes couleurs pour le nombre de problèmes a résoudre (si 0 blanc).
-
 - Revoir la présentation des problèmes/missions.
-
-BDD :
-- Ajouter a Station un tableau d'id pour utiliser l'API 
-- Réparer les datas de Sells
-- Revoir le nom des gares dans les BDD automatesSells & ticketWindowSell
+- faire une légende 
 
 
 PLUS TARD :

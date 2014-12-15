@@ -7,6 +7,7 @@ module.exports = {
 	},
 	autocompleZone : document.getElementById('autocomplete-station'),
 	popupConnexion : document.getElementById('popup-connexion'),
+	errorConnexion : document.getElementById('error-connexion'),
 	stationTitle : document.getElementById('station-name'),
 	detailsStation : document.getElementsByClassName('DetailStation'),
 	nbrCrowds : document.getElementById('nbr-crowds'),

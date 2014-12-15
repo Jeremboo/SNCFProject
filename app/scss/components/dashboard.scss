@@ -65,7 +65,7 @@
 	@include transition(background-color .2s ease-out, border .4s ease-out);
 
 	&:hover{
-		background-color: $lightPurple;
+		background-color: $veryLightPurple;
 
 		.Gauge-infos:not(.opened) {
 			opacity: 1;
@@ -100,20 +100,17 @@
 		background-color: $darkPurple;
 		}
 		&.level-2 {
-			background-color: $darkPurple;
+			background-color: $veryDarkPurple;
 		}
-		&.level-3 {
-			background-color: $darkPurple;
-		}
-		&.level-4, &.level-max {
-			background-color: $darkPurple;
+		&.level-3, &.level-4, &.level-max {
+			background-color: $blackPurple;
 		}
 	}
 
 	&-gaugeSells {
 		position : absolute;
 		width: 40%;
-		background-color : $lightPurple;
+		background-color : $whitePurple;
 		border-left : 5% solid $white;
 		bottom : 0;
 		left : -20%;
@@ -127,8 +124,8 @@
 	}
 
 	&.opened {
-		background-color: $lightPurple;
-		border-right : 60px solid $lightPurple;
+		background-color: $veryLightPurple;
+		border-right : 60px solid $veryLightPurple;
 	}
 
 	&.hold {
@@ -150,7 +147,7 @@
 		font-size: 0.5em;
 	}
 	&.today {
-		color: $purple;
+		color: $lightPurple;
 		background-color: $white;
 	}
 }
@@ -181,10 +178,12 @@
 
 	&-number {
 		font-size: 2em;
+		font-family: 'Avenir-Heavy';
 	}
 
 	&-text {
 		text-transform: uppercase;
+		line-height: 16px;
 	}
 }
 
@@ -197,6 +196,7 @@
 		border: 0;
 		font-size: 0.7em;
 		opacity: 0.8;
+		line-height: 12px;
 		@include transition(opacity .4s ease-out);
 
 		&:hover {

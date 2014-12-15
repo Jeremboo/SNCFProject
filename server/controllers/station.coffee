@@ -25,7 +25,7 @@ class Station
 				return
 
 			if stationDetail.length < 1
-				err = "Aucune données liés au nom de Gare que vous avez indiqué"
+				err = "Aucune données liées au nom de Gare indiqué."
 
 			callback  err, stationDetail[0]
 			

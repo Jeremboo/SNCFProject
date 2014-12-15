@@ -52,7 +52,7 @@ function showDashboard(e){
 		showGlobalDatas(autoCpltrStation.getValue());
 	} else {
 		//TODO : afficher un message d'erreur quelque part
-		console.log("No values");
+		content.errorConnexion.innerHTML = "Donnez le nom d'une gare";
 	}
 }
 
@@ -75,12 +75,6 @@ function showGlobalDatas(station){
 			//Création des jauges et mise en place dans le Dom 'invisible'
 			dashboard.createDashboard(datas.board);
 
-			//dashboard.showDashboard();
-
-
-			// 
-			//content.nbrEquipement.innerHTML = datas.stationDetails['Nb Equipement'];
-
 			//Animation
 			popUpConnexion.hidePopUp(function(){
 
@@ -90,22 +84,12 @@ function showGlobalDatas(station){
 
 				//Affichage des jauges & ouverture de la première gauge
 				dashboard.showDashboard();
-
-
-
-
 			});
-
-			
-
-		
-
-			
-
-			
-
 		} else {
-			console.log(err);
+			content.loader.classList.remove("fadeInUp");
+			content.loader.classList.remove("animated");
+			content.errorConnexion.innerHTML = err;
 		}		
 	});
 }
+

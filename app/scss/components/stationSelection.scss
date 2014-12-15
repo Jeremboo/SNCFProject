@@ -5,13 +5,14 @@
 	width: 100%;
 	height: 40px;
 	bottom: 0;
-	background-color: $purple;
+	background-color: $lightPurple;
 
 
 	&-autocompleteZone {
 		width: 100%;
 		height: 100%;
 		color : $white;
+		font-family: Avenir-Roman;
 
 		ul {
 			background-color: $veryDarkPurple;
@@ -20,7 +21,6 @@
 		li {
 			background-color: transparent;
 		}
-
 	}
 
 	&-button {
@@ -29,6 +29,6 @@
 		right: 0;
 		width: 40px;
 		height: 100%;
-		background-color: $darkPurple;
+		background-color: $veryDarkPurple;
 	}
 }

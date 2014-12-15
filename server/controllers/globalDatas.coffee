@@ -20,7 +20,6 @@ class GlobalDatas
     # Retourne un JSON regroupant l'enssemble des données nessessaires à la génération du dashboard.
     ### Schéma du JSON :
 
-
     ###
     getGlobalDatas : (date, stationDetails, callback) ->
 
@@ -34,6 +33,7 @@ class GlobalDatas
         @dashBoard = {
             dateNow : date,
             maxCrowds : -1,
+            maxSells : -1,
             datasByDays : []
         }
 
@@ -63,17 +63,17 @@ class GlobalDatas
                     @ticketWindowSellsData = ticketWindowSells
 
                     # TODO : Modifier la BDD pour ajouter les id aux  gares : stationDetails.id
-                    crowds.getPeriodicalCrowds "SANN", @firstDayAnalysed, @period, (err, crowdsPeriod) =>
+                    crowds.getPeriodicalCrowds stationDetails.stationId, @firstDayAnalysed, @period, (err, crowdsPeriod) =>
                         if err
                             callback err
                             return
 
-                        console.log "crowdsPeriod loaded..."+crowdsPeriod
+                        console.log "crowdsPeriod loaded..."
                         @crowdsPeriodData = crowdsPeriod
 
                         console.log "Construction of Dashboard"
                         @aggregateForPeriod (board) ->
-                            callback "", board
+                            callback null, board
 
     #
     # Crée un json regroupant toutes les données des 3 BDD par jour
@@ -101,13 +101,14 @@ class GlobalDatas
                 date = new Date data.date
                 return date.toDateString() == dayToDateString
 
-
             automateSells = { sum : -1 } if !automateSells
             ticketWindowSells = { sum : -1 } if !ticketWindowSells
             crowdsData = { crowds : -1 } if !crowdsData
 
-            # prix de vente max
+            # prix de vente max & crowds max
+            sellsTot = automateSells.sum + ticketWindowSells.sum;
             @dashBoard.maxCrowds = crowdsData.crowds if crowdsData.crowds > @dashBoard.maxCrowds
+            @dashBoard.maxSells = sellsTot if sellsTot > @dashBoard.maxSells
 
             json = {
                 day : dayInPeriod,

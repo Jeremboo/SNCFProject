@@ -16,6 +16,8 @@ module.exports = {
 	missionType : document.getElementById('mission-type'),
 	dashboardWrapper : document.getElementById('dashboard-wrapper'),
 	taux : document.getElementById('taux'),
-	maxCrowds : document.getElementById('max-crowds')
+	maxCrowds : document.getElementById('max-crowds'),
+	maxSells : document.getElementById('max-sells'),
+	loader : document.getElementById('loader')
 
 };

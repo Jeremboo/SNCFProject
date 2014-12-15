@@ -39,8 +39,9 @@
 			<div class="Dashboard-wrapper" id="dashboard-wrapper">
 				<div class="Dashboard-taux Taux" id="taux">
 					<!-- <p class="Taux-details">Ventes totals / jours</p> -->
-					<p class="Taux-details">Affluence / jours</p>
+					<p class="Taux-details">Affluence & Ventes totals / jours</p>
 					<p class="Taux-max"><span id="max-crowds"></span> voyageurs</p>
+					<p class="Taux-max"><span id="max-sells"></span> € de ventes</p>
 				</div>
 				<!-- div.Dashboard-gauge.Gauge*30>div.Gauge-gauge+(div.Gauge-date.Date>div.Date-day{MAR}+div.Date-number{0$}) -->
 			</div>
@@ -51,14 +52,14 @@
 	<div class="Popup hide hidden" id="popup-connexion">
 		<div class="Popup-backdrop"></div>
 		<div class="Popup-content">
-			<h2 class="Popup-title">Bienvenue</h2>
-			<form class="Popup-form Form" onSubmit="return false">
-				<ul class="Form-errors" id="form-error"></ul>
-				<div class="Form-group">
-					<label for="agentname" class="Form-label">Votre nom d'agent :</label>
-					<input name="agentname" type="text" class="Form-input">
-				</div>
-			</form>
+			<h2 class="Popup-title">SNCF PRÉVISIONS</h2>
+			<ul id="loader">
+			  <li></li>
+			  <li></li>
+			  <li></li>
+			  <li></li>
+			  <li></li>
+			</ul>
 			<div class="StationSelection">
 				<div class="StationSelection-autocompleteZone" id="autocomplete-station"></div>
 				<button class="StationSelection-button Button">OK</button>

@@ -4,8 +4,9 @@ var content = require('js/content');
 var PreventiveActions = require('js/action');
 var EventHandling = require('js/eventHandling');
 
-function Gauge(gaugeMax, datas){
+function Gauge(gaugeMax, sellsMax, datas){
 	this.gaugeMax = gaugeMax;
+	this.gaugeSellMax = sellsMax;
 	this.day = new Date(datas.day);
 	this.eventHandling = new EventHandling();
 	this.crowds = datas.crowds;
@@ -27,13 +28,16 @@ Gauge.prototype.createGauge = function(type){
 	this.typeGauge = type;
 	var hold = "";
 	var today = "";
+	var level = "";
 	var DOMMissionsPres = "";
-	var totalSells = this.automateSells+this.ticketWindowSells;
-	//TODO : afficher les gauges en fonction de l'affluence et non du prix. 
-	var size = (this.crowds/this.gaugeMax)*100;
+	var totalSells = this.automateSells+this.ticketWindowSells; 
+	var sizeCrowds = (this.crowds/this.gaugeMax)*100;
+	var sizeSells = (totalSells/this.gaugeSellMax)*100;
 
-	if(size < 0.5)
-		size = 0.5;
+	if(sizeCrowds < 0.5)
+		sizeCrowds = 0.5;
+	if(sizeSells < 0.5)
+		sizeSells = 0.5;
 	
 	switch(this.typeGauge){
 		case content.cst.UNACTIVE :
@@ -48,11 +52,21 @@ Gauge.prototype.createGauge = function(type){
 			today = " today";
 			//TODO : mettre les logos des actions réalisée.
 			this.nbrOfMissions = this.actionsToDo.length;
+			if(this.nbrOfMissions < 5){
+				level = " level-"+this.nbrOfMissions;
+			} else {
+				level = " level-max"
+			}
 			this.nameOfMissions = "MISSIONS A FAIRE";
 			this.missionsShowed = this.actionsToDo;
 			break;
 		case content.cst.ACTIVE :
 			this.nbrOfMissions = this.preventiveActions.length;
+			if(this.nbrOfMissions < 5){
+				level = " level-"+this.nbrOfMissions;
+			} else {
+				level = " level-max"
+			}
 			this.nameOfMissions = "MISSIONS POSSIBLES";
 			this.missionsShowed = this.preventiveActions;
 			break;
@@ -68,7 +82,8 @@ Gauge.prototype.createGauge = function(type){
 	//TODO : faire une séparation pour les mois
 	return '<div class="Dashboard-gauge Gauge'+hold+'">'+
 		'<div class="Gauge-wrapper">'+
-			'<div class="Gauge-gauge" style="height:'+size+'%"></div>'+
+			'<div class="Gauge-gaugeCrowds'+level+'" style="height:'+sizeCrowds+'%"></div>'+
+			'<div class="Gauge-gaugeSells" style="height:'+sizeSells+'%"></div>'+
 		'</div>'+
 		'<div class="Gauge-infos Infos">'+
 			'<div class="Infos-hover animated">'+

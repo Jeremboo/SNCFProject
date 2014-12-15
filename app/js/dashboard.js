@@ -27,7 +27,7 @@ Dashboard.prototype.createDashboard = function(datas){
 
 	for( var i = 0, j = this.days.length ; i < j ; i++){
 		var that = this;
-		var gauge = new Gauge(datas.maxCrowds, this.days[i]);
+		var gauge = new Gauge(datas.maxCrowds, datas.maxSells, this.days[i]);
 
 		this.searchPreventiveActions(gauge, function(){
 
@@ -97,16 +97,27 @@ Dashboard.prototype.searchPreventiveActions = function(gauge, callback){
 	//TODO : faire les test qui permettent de définir quelles actions sont possibles et quand
 
 	var dirsProblems = gauge.getDirsProblems();
+	
 	if(dirsProblems.length > 0){
-		this.addAction(gauge, 'dirs problem', 5);
-	}
-
-	if(Math.random() > 0.5){
-		this.addAction(gauge, 'Action random', 2);
-	}
-
-	if(Math.random() > 0.5){
-		this.addAction(gauge, 'Action random 2', 3);
+		for (var i = dirsProblems.length - 1; i >= 0; i--) {
+			switch(dirsProblems[i].categorisationTheme){
+				case 'Vente' :
+					this.addAction(gauge, 'problème de vente', 5);
+					break;
+				case 'Matériel' :
+					this.addAction(gauge, 'problème matériel', 5);
+					break;
+				case 'Applicatif' :
+					this.addAction(gauge, 'problème applicatif', 5);
+					break;
+				case 'Après-vente' :
+					this.addAction(gauge, "problème d'après vente", 5);
+					break;
+				default :
+					this.addAction(gauge, 'Problème inconnue', 5);
+					break;
+			}
+		};
 	}
 
 	callback();

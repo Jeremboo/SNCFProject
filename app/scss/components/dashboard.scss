@@ -48,18 +48,17 @@
 		width: 150px;
 		right: -63px;
 		bottom: 60px;
+		font-size: 0.8em;
 	}
 
 	&-max {
-		position: absolute;
 		margin: 0;
-		width: 100px;
-		top: -20px;
-		left: -45px;
+		width: 120px;
+		margin-left: -60px;
+		margin-top: -30px;
 		text-align: center;
 	}
 }
-
 .Gauge {
 	position: relative;
 	border: 0 solid $purple;
@@ -91,11 +90,33 @@
 	}
 
 
-	&-gauge {
+	&-gaugeCrowds {
 		position: absolute;
 		width: 100%;
 		background-color: $white;
 		bottom: 0;
+
+		&.level-1 {
+		background-color: $darkPurple;
+		}
+		&.level-2 {
+			background-color: $darkPurple;
+		}
+		&.level-3 {
+			background-color: $darkPurple;
+		}
+		&.level-4, &.level-max {
+			background-color: $darkPurple;
+		}
+	}
+
+	&-gaugeSells {
+		position : absolute;
+		width: 40%;
+		background-color : $lightPurple;
+		border-left : 5% solid $white;
+		bottom : 0;
+		left : -20%;
 	}
 
 	&-date {
@@ -107,7 +128,7 @@
 
 	&.opened {
 		background-color: $lightPurple;
-		border-right : 50px solid $lightPurple;
+		border-right : 60px solid $lightPurple;
 	}
 
 	&.hold {

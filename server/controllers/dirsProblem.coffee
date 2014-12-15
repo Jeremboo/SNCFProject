@@ -18,7 +18,7 @@ class DirsProblem
             dirs = _.filter dirs, (dir) ->
                 return (dir['Nom Outil'].indexOf(stationCode) >= 0)
 
-            callback "", dirs
+            callback null, dirs
 
 module.exports = DirsProblem
 

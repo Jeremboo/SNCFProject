@@ -14,6 +14,7 @@ BDD :
 
 PLUS TARD :
 
+- Présisé, améliorer les prévisions de problème.
 - Faire un enregistrement des actions faites par jour pour les revoirs au rafraichissement de la page.
 - Ajouter les accidents passagers
 - faire le système qui génère une BDD de prévisions moyennes

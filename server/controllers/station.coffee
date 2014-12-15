@@ -14,7 +14,7 @@ class Station
 
 			for station in stations
 				stationTbl.push station.Gare
-			callback "", stationTbl
+			callback null, stationTbl
 
 	#
 	# Retourne les données détaillées d'une stations & une erreur si la station n'existe pas

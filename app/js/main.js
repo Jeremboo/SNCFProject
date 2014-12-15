@@ -24,9 +24,9 @@ var dashboard = new Dashboard(content.dashboardWrapper, today);
 /* Recupération de la liste des gares */
 request.post({url : URL+_STATIONS}, function(err, datas){
 
-	showGlobalDatas("CHELLES GOURNAY");
+	//showGlobalDatas("CHELLES GOURNAY");
 
-	/*if(datas){
+	if(datas){
 
 		popUpConnexion.showPopUp();
 
@@ -37,17 +37,18 @@ request.post({url : URL+_STATIONS}, function(err, datas){
 
 	} else {
 		console.log(err);
-	}*/
+	}
 });
 
 /*
  * Activée lors d'une validation (click ou entrer) du choix d'un nom de gare.
  */
 function showDashboard(e){
-	//TODO : faire la récupération du nom d'agent et le connecter.
+
 	var v = autoCpltrStation.getValue();
 
 	if(v){
+		content.loader.className += "fadeInUp animated";
 		showGlobalDatas(autoCpltrStation.getValue());
 	} else {
 		//TODO : afficher un message d'erreur quelque part
@@ -66,13 +67,15 @@ function showGlobalDatas(station){
 			console.log(datas);
 
 			//ajouter les détails de la jauge (ne fonctionne qu'avant l'insertion des gauges)
-			content.maxCrowds.innerHTML = datas.board.maxCrowds;
+			content.maxCrowds.innerHTML = new Intl.NumberFormat().format(datas.board.maxCrowds);
+			content.maxSells.innerHTML = new Intl.NumberFormat().format(datas.board.maxSells);
+
 			content.taux.className += " fadeInUp animated"; 
 
 			//Création des jauges et mise en place dans le Dom 'invisible'
 			dashboard.createDashboard(datas.board);
 
-			dashboard.showDashboard();
+			//dashboard.showDashboard();
 
 
 			// 
@@ -83,9 +86,6 @@ function showGlobalDatas(station){
 
 				//WARNING : fonction éxcuté deux fois !
 
-
-				//ajouter les détails de la jauge
-				content.maxSells.innerHTML = datas.board.maxSells;
 				content.taux.className += " fadeInUp animated";
 
 				//Affichage des jauges & ouverture de la première gauge

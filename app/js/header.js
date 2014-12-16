@@ -3,9 +3,23 @@
 var content = require('js/content');
 
 function Header(){
-
+	this.missionsValuesShowed = false;
 }
 
+Header.prototype.addEvent = function(){
+	var that = this;
+
+	content.showMissions.addEventListener('click',function(e){
+		console.log("gogo")
+		if(!that.missionsValuesShowed){
+			that.showMissionsValues();
+		} else {
+			that.hideMissionsValues();
+		}
+	});
+
+	content.veil.addEventListener('click',this.hideMissionsValues);
+};
 
 /* ####################
 	SHOW & HIDE
@@ -33,7 +47,6 @@ Header.prototype.showGaugeValues = function() {
  * Cache l'enssemble des valeurs du header destinées à la gauge ouverte
  */
 Header.prototype.hideGaugeValues = function() {
-
 	for( i = 0, j = content.detailsStation.length ; i < j ; i++){
 		content.detailsStation[i].classList.remove('fadeInRight');
 	}
@@ -58,18 +71,29 @@ Header.prototype.showDetailsValues = function(nbrRemaining) {
 	},200);
 };
 
-/* ##
+
+/*
  * Affiche le tableau de détail des missions
  */
  Header.prototype.showMissionsValues = function() {
- 	// body...
+
+ 	content.showMissions.className += " close";
+ 	content.headerMissions.classList.remove('hide');
+ 	content.veil.classList.remove('hide');
+ 	this.missionsValuesShowed = true;
  };
 
  /* ##
  * Cache le tableau de détail des missions
  */
  Header.prototype.hideMissionsValues = function() {
- 	// body...
+
+ 	content.showMissions.classList.remove("close");
+ 	content.headerMissions.className += " hide";
+ 	content.veil.className += ' hide';
+
+
+ 	 this.missionsValuesShowed = false;
  };
 
 

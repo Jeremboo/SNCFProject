@@ -24,11 +24,11 @@ var popUpConnexion = new Popup(content.popupConnexion);
 var dashboard = new Dashboard(content.dashboardWrapper, today);
 var header = new Header();
 
+/* Events */
+header.addEvent(); // ajoute les futurs évènements
 
 /* Recupération de la liste des gares */
 request.post({url : URL+_STATIONS}, function(err, datas){
-
-	//showGlobalDatas("CHELLES GOURNAY");
 
 	if(datas){
 

@@ -1,7 +1,7 @@
 'use_strict';
 
 var Gauge = require('js/gauge');
-var PretentiveActions = ('js/preventiveActions');
+var PretentiveMissions = ('js/preventiveMissions');
 var content = require('js/content');
 
 function Dashboard(content, today){
@@ -29,7 +29,7 @@ Dashboard.prototype.createDashboard = function(datas){
 		var that = this;
 		var gauge = new Gauge(datas.maxCrowds, datas.maxSells, this.days[i]);
 
-		this.searchPreventiveActions(gauge, function(){
+		this.searchPreventiveMissions(gauge, function(){
 
 			if(new Date(that.days[i].day).getTime() > todayTimeStamp){
 
@@ -90,7 +90,7 @@ Dashboard.prototype.showDashboard = function(nbrRemaining){
 /*
  * Recherche les actions possibles sur la gauge donnée et ajoute ces actions aux gauges concernées ainsi qu'a la gauge active 
  */
-Dashboard.prototype.searchPreventiveActions = function(gauge, callback){
+Dashboard.prototype.searchPreventiveMissions = function(gauge, callback){
 
 	//TODO : faire les test qui permettent de définir quelles actions sont possibles et quand
 
@@ -100,19 +100,19 @@ Dashboard.prototype.searchPreventiveActions = function(gauge, callback){
 		for (var i = dirsProblems.length - 1; i >= 0; i--) {
 			switch(dirsProblems[i].categorisationTheme){
 				case 'Vente' :
-					this.addAction(gauge, 'problème de vente', 5);
+					this.addMission(gauge, 'problème de vente', 5);
 					break;
 				case 'Matériel' :
-					this.addAction(gauge, 'problème matériel', 5);
+					this.addMission(gauge, 'problème matériel', 5);
 					break;
 				case 'Applicatif' :
-					this.addAction(gauge, 'problème applicatif', 5);
+					this.addMission(gauge, 'problème applicatif', 5);
 					break;
 				case 'Après-vente' :
-					this.addAction(gauge, "problème d'après vente", 5);
+					this.addMission(gauge, "problème d'après vente", 5);
 					break;
 				default :
-					this.addAction(gauge, 'Problème inconnue', 5);
+					this.addMission(gauge, 'Problème inconnue', 5);
 					break;
 			}
 		};
@@ -121,12 +121,12 @@ Dashboard.prototype.searchPreventiveActions = function(gauge, callback){
 	callback();
 };
 
-Dashboard.prototype.addAction = function(gauge, type, manyDaysBefore){
+Dashboard.prototype.addMission = function(gauge, type, manyDaysBefore){
 
-	gauge.addPreventionAction(type,manyDaysBefore);
+	gauge.addPreventionMission(type,manyDaysBefore);
 
 	if(this.gauges.length > manyDaysBefore){
-		this.gauges[manyDaysBefore-1].addActionToDo(type,manyDaysBefore);
+		this.gauges[manyDaysBefore-1].addMissionToDo(type,manyDaysBefore);
 	}
 }
 

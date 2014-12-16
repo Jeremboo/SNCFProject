@@ -20,6 +20,10 @@ module.exports = {
 	nbrMissions : document.getElementById('nbr-missions'),
 	missionType : document.getElementById('mission-type'),
 
+	showMissions : document.getElementById('show-mission'),
+	headerMissions : document.getElementById('header-missions'),
+	veil : document.getElementById('veil'),
+
 	dashboardWrapper : document.getElementById('dashboard-wrapper'),
 	taux : document.getElementById('taux'),
 	maxCrowds : document.getElementById('max-crowds'),

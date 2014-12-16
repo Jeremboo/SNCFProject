@@ -6,8 +6,9 @@
 	<link rel="stylesheet" href="css/app.css">
 </head>
 <body>
-
+	<div class="Veil hide" id="veil"></div>
 	<header class="Header">
+		<div class="Header-missions hide" id="header-missions"></div>
 		<div class="Header-content _col6">
 			<img class="Header-logo" src="img/logoSNCF.svg" align="left" alt="logo SNCF">
 			<h1 class="Header-stationName" id="station-name">SNCF PRÉVISIONS</h1>
@@ -16,7 +17,7 @@
 		<div class="Header-content _col6">
 			<ul class="Header-detailStation">
 				<li class="DetailStation animated">
-					<button class="DetailStation-openMission">+</button>
+					<button class="DetailStation-openMission Button header" id="show-mission">+</button>
 				</li>
 				<li class="DetailStation animated">
 					<div class="DetailStation-number" id="nbr-crowds"></div>
@@ -68,7 +69,7 @@
 			</ul>
 			<div class="StationSelection">
 				<div class="StationSelection-autocompleteZone" id="autocomplete-station"></div>
-				<button class="StationSelection-button Button">OK</button>
+				<button class="StationSelection-button Button popup">OK</button>
 			</div>
 		</div>
 	</div>

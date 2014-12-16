@@ -1,11 +1,11 @@
 @import "../base/variables";
+@import "../base/mixins";
 
 .Header {
 	position: fixed;
 	top : 0;
 	left: 0;
 	width: 100%;
-	height: 55px;
 	background-color: $white;
 
 	&-content {
@@ -31,6 +31,17 @@
 
 	&-small {
 		color : $blackPurple;
+	}
+
+	&-missions {
+		border-bottom: 1px solid $grey;
+		height: 180px;
+		@include transition(height .2s ease-out);
+
+		&.hide{
+			height: 0;
+			border: 0;
+		}
 	}
 }
 

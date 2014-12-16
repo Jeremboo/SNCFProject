@@ -1,0 +1,163 @@
+@import "../base/variables";
+@import "../base/mixins";
+
+.Gauge {
+	position: relative;
+	border: 0 solid $purple;
+	@include transition(background-color .2s ease-out, border .4s ease-out);
+
+	&:hover{
+		background-color: $veryLightPurple;
+
+		.Gauge-infos:not(.opened) {
+			opacity: 1;
+			margin-left: 50px;
+		}
+
+		.Gauge-gaugeCrowds {
+			opacity : 1;
+		}
+	}
+
+	&-wrapper {
+		opacity: 0;
+		position: absolute;
+		width: 50%;
+		height: $gaugeHeight;
+		margin-left: 25%;
+		bottom: $gaugeBottom;
+	}
+
+	&-infos {
+		width: 200px;
+		margin-top: 70px;
+		opacity: 0;
+		@include transition(opacity .2s ease-out, margin .4s ease-out);
+	}
+
+
+	&-gaugeSells {
+		position: absolute;
+		width: 100%;
+		background-color: $white;
+		bottom: 0;
+
+		&.level-1 {
+		background-color: $darkPurple;
+		}
+		&.level-2 {
+			background-color: $veryDarkPurple;
+		}
+		&.level-3, &.level-4, &.level-max {
+			background-color: $blackPurple;
+		}
+	}
+
+	&-gaugeCrowds {
+		opacity : 0;
+		position : absolute;
+		width: 40%;
+		background-color : $blue;
+		border-left : 5% solid $white;
+		bottom : 0;
+		left : -20%;
+	}
+
+	&-date {
+		position: absolute;
+		width: 100%;
+		padding: 5px 0;
+		bottom: 5px;
+	}
+
+	&.opened {
+		background-color: $veryLightPurple;
+		border-right : 60px solid $veryLightPurple;
+	}
+
+	&.hold {
+		opacity: 0.5;
+	}
+}
+
+.Date {
+	opacity: 0;
+	color: $white;
+	text-align: center;
+
+	& > div {
+		width: 100%;
+	}
+
+	&-day{
+		text-transform: uppercase;
+		font-size: 0.5em;
+	}
+	&.today {
+		color: $lightPurple;
+		background-color: $white;
+	}
+}
+
+.Infos {
+	color: $white;
+
+	&.opened {
+		opacity: 1;
+		margin-left: 10px;
+	}
+
+	&-hover {
+		pointer-events: none;
+	}
+
+	&-hover, &-click {
+		position: absolute;
+	}
+	&-hover.hide, &-click.hide {
+		display: none;
+	}
+
+	&-click {
+		opacity: 0;
+	}
+
+	&-wrapper {
+		width: 100%;
+		margin: 15px 0;
+	}
+
+	&-number {
+		font-size: 2em;
+		font-family: 'Avenir-Heavy';
+	}
+
+	&-text {
+		text-transform: uppercase;
+		line-height: 16px;
+	}
+}
+
+.Mission {
+	margin-bottom: 6px;
+
+	&-name {
+		text-transform: uppercase;
+		background-color: transparent;
+		border: 0;
+		font-size: 0.7em;
+		opacity: 0.8;
+		line-height: 12px;
+		@include transition(opacity .4s ease-out);
+
+		&:hover {
+			opacity: 1;
+		}
+
+		&:focus {
+			opacity: 1;
+			outline: 0;
+		}
+	}
+
+}

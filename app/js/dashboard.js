@@ -32,11 +32,14 @@ Dashboard.prototype.createDashboard = function(datas){
 		this.searchPreventiveActions(gauge, function(){
 
 			if(new Date(that.days[i].day).getTime() > todayTimeStamp){
+
 				DOMBoard += gauge.createGauge(content.cst.ACTIVE);
 			} else if(new Date(that.days[i].day).getTime() < todayTimeStamp) {
+
 				that.numberOfTodaysGauge = i+1;
 				DOMBoard += gauge.createGauge(content.cst.UNACTIVE);
 			} else {
+
 				DOMBoard += gauge.createGauge(content.cst.TODAY);
 			}
 			that.gauges.push(gauge);
@@ -56,23 +59,18 @@ Dashboard.prototype.showDashboard = function(nbrRemaining){
 
 	nbrRemaining = nbrRemaining || 0;
 
-	this.gauges[nbrRemaining].addEvents(this.DOMGauges[nbrRemaining].parentNode,function(openGauge){
+	// Définition de la fonction qui serra éxécutée lors d'un click.
+	this.gauges[nbrRemaining].addEvents(this.DOMGauges[nbrRemaining].parentNode,function(gaugeOpened){
 		if(that.openGauge)
 			that.openGauge.close();
-		that.openGauge = openGauge;
-		for( i = 0, j = content.detailsStation.length ; i < j ; i++){
-			content.detailsStation[i].classList.remove('fadeInRight');
-			content.detailsStation[i].classList.remove('animated');
-		}
-		//TODO : résoudre bug d'asyncronisme (le dernié a toujours animated)
-		setTimeout(function(){
-			that.showDetailsValues();
-		},50);
+		that.openGauge = gaugeOpened;
 	});
+
+	//Affiche les gauges avec une animation
 	this.DOMGauges[nbrRemaining].className += " fadeInUp animated";
 	this.DOMDates[nbrRemaining].className += " fadeInUp animated";
 
-
+	// Gestion de la recursivitée pour la saccade.
 	if(nbrRemaining === this.gauges.length-1){
 		this.openGaugeForToday();
 		//TODO : n'activer les rollOver et les click qu'a ce moment la.
@@ -132,26 +130,16 @@ Dashboard.prototype.addAction = function(gauge, type, manyDaysBefore){
 	}
 }
 
+/*
+ * Ouvre automatiquement la gauge correspondant au jour actuel.
+ */
 Dashboard.prototype.openGaugeForToday = function(){
 
 	var that = this;
 
 	this.gauges[this.numberOfTodaysGauge].open(function(openGauge){
 		that.openGauge = openGauge;
-		that.showDetailsValues();
 	});
-};
-
-Dashboard.prototype.showDetailsValues = function(nbrRemaining){
-	var that = this;
-	nbrRemaining = nbrRemaining || content.detailsStation.length;
-	nbrRemaining--;
-	content.detailsStation[nbrRemaining].className += " fadeInRight animated";
-	if(nbrRemaining === 0)
-		return
-	setTimeout(function(){
-		that.showDetailsValues(nbrRemaining);
-	},200);
 };
 
 

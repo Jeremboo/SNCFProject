@@ -31,6 +31,8 @@ Action.prototype.addEvents = function(DOMMission){
 
 Action.prototype.open = function(e) {
 	console.log("TODO");
+	//TODO : donner cette méthode au header pour qui s'ouvre dans ses boutons.
+	//TODO : appeller this.header.setValuesMissions()
 };
 
 

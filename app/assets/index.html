@@ -10,23 +10,27 @@
 	<header class="Header">
 		<div class="Header-content _col6">
 			<img class="Header-logo" src="img/logoSNCF.svg" align="left" alt="logo SNCF">
-			<p class="Header-stationName" id="station-name"></p>
+			<h1 class="Header-stationName" id="station-name">SNCF PRÉVISIONS</h1>
+			<p class="Header-small animated" id="date-selected"></p>
 		</div>
 		<div class="Header-content _col6">
 			<ul class="Header-detailStation">
-				<li class="DetailStation">
+				<li class="DetailStation animated">
+					<button class="DetailStation-openMission">+</button>
+				</li>
+				<li class="DetailStation animated">
 					<div class="DetailStation-number" id="nbr-crowds"></div>
 					<div class="DetailStation-text">VOYAGEURS CE JOUR</div>
 				</li>
-				<li class="DetailStation">
+				<li class="DetailStation animated">
 					<div class="DetailStation-number" id="nbr-automatesells"></div>
 					<div class="DetailStation-text">€ DE VENTES EN MACHINE</div>
 				</li>
-				<li class="DetailStation">
+				<li class="DetailStation animated">
 					<div class="DetailStation-number" id="nbr-ticketwindowsells"></div>
 					<div class="DetailStation-text">€ DE VENTES EN GUICHES</div>
 				</li>
-				<li class="DetailStation">
+				<li class="DetailStation animated">
 					<div class="DetailStation-number" id="nbr-missions"></div>
 					<div class="DetailStation-text" id="mission-type">MISSIONS</div>
 				</li>
@@ -39,8 +43,8 @@
 			<div class="Dashboard-wrapper" id="dashboard-wrapper">
 				<div class="Dashboard-taux Taux" id="taux">
 					<!-- <p class="Taux-details">Ventes totals / jours</p> -->
-					<p class="Taux-details">Affluence & Ventes totals / jours</p>
-					<p class="Taux-max"><span id="max-crowds"></span> voyageurs</p>
+					<p class="Taux-details">Ventes totales / jours</p>
+					<!--<p class="Taux-max"><span id="max-crowds"></span> voyageurs</p>-->
 					<p class="Taux-max"><span id="max-sells"></span> € de ventes</p>
 				</div>
 				<!-- div.Dashboard-gauge.Gauge*30>div.Gauge-gauge+(div.Gauge-date.Date>div.Date-day{MAR}+div.Date-number{0$}) -->

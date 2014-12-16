@@ -2,6 +2,7 @@ var content = require("js/content");
 var AjaxRequest = require('js/ajaxRequest');
 var Popup = require('js/popUp');
 var Dashboard = require('js/dashboard');
+var Header = require('js/header');
 
 
 /* CONST */
@@ -14,12 +15,15 @@ var _STATIONS = "api/stations";
 
 /* INIT */
 
-var today = new Date(2014, 2, 6); //On triche avec une date de mars pour être conforme au données.
+var today = new Date(2014, 1, 26); //On triche avec une date de mars pour être conforme au données.
 var board = [];
+var stationName = null;
 var request = new AjaxRequest();
 var autoCpltrStation = new AutoCompltr(content.autocompleZone);
 var popUpConnexion = new Popup(content.popupConnexion);
 var dashboard = new Dashboard(content.dashboardWrapper, today);
+var header = new Header();
+
 
 /* Recupération de la liste des gares */
 request.post({url : URL+_STATIONS}, function(err, datas){
@@ -45,11 +49,12 @@ request.post({url : URL+_STATIONS}, function(err, datas){
  */
 function showDashboard(e){
 
-	var v = autoCpltrStation.getValue();
+	stationName = autoCpltrStation.getValue();
 
-	if(v){
+	if(stationName){
+		content.errorConnexion.innerHTML = "";
 		content.loader.className += "fadeInUp animated";
-		showGlobalDatas(autoCpltrStation.getValue());
+		showGlobalDatas();
 	} else {
 		//TODO : afficher un message d'erreur quelque part
 		content.errorConnexion.innerHTML = "Donnez le nom d'une gare";
@@ -59,29 +64,26 @@ function showDashboard(e){
 /*
  * Recupération des données du jour par rapport a une station
  */
-function showGlobalDatas(station){
+function showGlobalDatas(){
 
-	request.post({url : URL+_GLOBALDATASFORTODAY, datas : {station : station, date : today} }, function(err, datas){
+	request.post({url : URL+_GLOBALDATASFORTODAY, datas : {station : stationName, date : today} }, function(err, datas){
 		if(datas){
 	
 			console.log(datas);
 
 			//ajouter les détails de la jauge (ne fonctionne qu'avant l'insertion des gauges)
-			content.maxCrowds.innerHTML = new Intl.NumberFormat().format(datas.board.maxCrowds);
+			//content.maxCrowds.innerHTML = new Intl.NumberFormat().format(datas.board.maxCrowds);
 			content.maxSells.innerHTML = new Intl.NumberFormat().format(datas.board.maxSells);
-
 			content.taux.className += " fadeInUp animated"; 
 
 			//Création des jauges et mise en place dans le Dom 'invisible'
 			dashboard.createDashboard(datas.board);
 
 			//Animation
+			//WARNING : fonction éxcuté deux fois !
 			popUpConnexion.hidePopUp(function(){
 
-				//WARNING : fonction éxcuté deux fois !
-
-				content.taux.className += " fadeInUp animated";
-
+				header.showTitle(stationName);
 				//Affichage des jauges & ouverture de la première gauge
 				dashboard.showDashboard();
 			});

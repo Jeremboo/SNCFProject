@@ -1,6 +1,9 @@
 'use_strict';
 
+var Header = require('js/header');
+
 function Mission(missionType, gaugeType, howManyDays){
+	this.header = new Header();
 	this.missionType = missionType;
 	this.gaugeType = gaugeType;
 	this.howManyDays = howManyDays;
@@ -24,13 +27,18 @@ Mission.prototype.createMission = function(){
 };
 
 Mission.prototype.addEvents = function(DOMMission){
+	var that = this;
 	this.DOMMission = DOMMission;
-	this.DOMMission.addEventListener('click',this.open);
+	this.DOMMission.addEventListener('click',function(){
+		that.header.setMissionsValues();
+		that.header.showMissionsValues();
+	});
 }
 
 
 Mission.prototype.open = function(e) {
-	console.log("TODO");
+	console.log(this);
+	this.header.showMissionsValues();
 	//TODO : donner cette méthode au header pour qui s'ouvre dans ses boutons.
 	//TODO : appeller this.header.setValuesMissions()
 };

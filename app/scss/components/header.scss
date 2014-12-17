@@ -6,12 +6,17 @@
 	top : 0;
 	left: 0;
 	width: 100%;
-	background-color: $white;
+	height : 30px;
+	@include transition(height .2s ease-out);
+
+
+	
 
 	&-content {
 		float: left;
 		height: 30px;
 		padding: 12px 0;
+		background-color : $white;
 	}
 
 	&-logo {
@@ -33,14 +38,21 @@
 		color : $blackPurple;
 	}
 
+	&.missionOpened {
+		height : 30%;
+	}
+
 	&-missions {
 		border-bottom: 1px solid $grey;
-		height: 180px;
+		height: 70%;
+		padding: 1%;
+		background-color : $white;
 		@include transition(height .2s ease-out);
 
 		&.hide{
 			height: 0;
 			border: 0;
+			padding : 0;
 		}
 	}
 }

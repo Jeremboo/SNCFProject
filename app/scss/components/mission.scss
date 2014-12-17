@@ -1,0 +1,96 @@
+@import "../base/variables";
+@import "../base/mixins";
+
+.MissionHeader {
+	overflow : hidden;
+
+	&-content {
+		height : 100%;
+		float : left;
+		border-right : 1px solid $darkPurple;
+	}
+
+	&-content:last-child {
+		border : 0;
+	}
+
+	&-content:nth-child(2){
+		padding: 0 20px;
+	}
+
+	//col 1
+	&-title, &-wrapperLogo {
+		float : left;
+		text-align : right;
+		color : $lightPurple;
+		font-size : 2em;
+		text-transform: uppercase;
+
+	}
+
+	&-title {
+		font-family : 'Avenir-Heavy';
+		margin : 11% $col1;
+	}
+
+	&-wrapperLogo {
+		border : 1px solid $lightPurple;
+		border-radius : 50%;
+		width : 80px;
+		height : 80px;
+		margin : 11% 0;
+	}
+
+	&-missionLogo {
+		width : 80%;
+		height : 80%;
+		margin : 10%;
+		border-radius : 50%;
+		background-color : $lightPurple;
+	}
+
+	//col2
+	&-titleDescription, &-description {
+		width : 80%;
+		margin : auto;
+	}
+
+	&-titleDescription {
+		text-align : center;
+		margin-top : 5%;
+		color : $lightPurple;
+		font-family : 'Avenir-Heavy';
+		font-size : 1.2em;
+		text-transform : uppercase;
+	}
+
+	&-description {
+		margin-top : 5px;
+		line-height : 20px;
+		text-align : justify;
+	}
+
+	//col3
+	&-parameters {
+		height : 80%;
+		margin : 5% $col1;
+	}
+
+	&-parameter {
+		float : left;
+		height : 100%;
+		margin : 0 $col1/2;
+	}
+
+	&-parameterTitle {
+		font-family : 'Avenir-Heavy';
+		color : $lightPurple;
+		font-size : 1.2em;
+	}
+
+	&-parameterDescription {
+		color : $lightPurple;
+	}
+
+
+}

@@ -20,9 +20,16 @@ module.exports = {
 	nbrMissions : document.getElementById('nbr-missions'),
 	missionType : document.getElementById('mission-type'),
 
+	header : document.getElementById('header'),
 	showMissions : document.getElementById('show-mission'),
 	headerMissions : document.getElementById('header-missions'),
 	veil : document.getElementById('veil'),
+
+	missionTitleDescription : document.getElementById('mission-title-description'),
+	misisonDescription : document.getElementById('mission-description'),
+	missionParameterTitle : document.getElementsByClassName('MissionHeader-parameterTitle'),
+	missionParameterDescription : document.getElementsByClassName('MissionHeader-parameterDescription'),
+	validateMission : document.getElementById('validate-mission'),
 
 	dashboardWrapper : document.getElementById('dashboard-wrapper'),
 	taux : document.getElementById('taux'),

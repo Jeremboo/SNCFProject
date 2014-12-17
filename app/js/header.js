@@ -19,6 +19,8 @@ Header.prototype.addEvent = function(){
 	});
 
 	content.veil.addEventListener('click',this.hideMissionsValues);
+
+	content.validateMission.addEventListener('click',this.hideMissionsValues);
 };
 
 /* ####################
@@ -77,6 +79,7 @@ Header.prototype.showDetailsValues = function(nbrRemaining) {
  */
  Header.prototype.showMissionsValues = function() {
 
+ 	content.header.className += " missionOpened";
  	content.showMissions.className += " close";
  	content.headerMissions.classList.remove('hide');
  	content.veil.classList.remove('hide');
@@ -88,6 +91,7 @@ Header.prototype.showDetailsValues = function(nbrRemaining) {
  */
  Header.prototype.hideMissionsValues = function() {
 
+ 	content.header.classList.remove('missionOpened');
  	content.showMissions.classList.remove("close");
  	content.headerMissions.className += " hide";
  	content.veil.className += ' hide';
@@ -117,8 +121,8 @@ Header.prototype.setValuesGauge = function(nbrMissions, missionName, nbrTicketWi
 /*
  * Remplit les détails des valeurs de mission
  */
-Header.prototype.setValuesMissions = function() {
-	
+Header.prototype.setMissionsValues = function() {
+	console.log('TODO');
 };
 
 

@@ -63,7 +63,8 @@ Gauge.prototype.createGauge = function(){
 		level = " level-max"
 	}
 
-	for (var i = 0; i < this.missions.length; i++) {
+	for (var i = this.missions.length - 1; i >= 0; i--) {
+		console.log(this.missions.title);
 		DOMMissionsPres += this.missions[i].createMission();
 	};
 
@@ -121,8 +122,8 @@ Gauge.prototype.addEvents = function(DOMGauge, callbackGaugeOpened){
 	});
 
 	//Ecouteur sur les boutons missions
-	for (var i = 0; i < DOMMissions.length; i++) {
-		this.missions[i].addEvents(DOMMissions[i]);
+	for (var i = this.missions.length - 1; i >= 0; i--) {
+		this.missions[i].addEvents(DOMMissions[this.missions.length-1-i]);
 	};
 };
 
@@ -175,17 +176,37 @@ Gauge.prototype.close = function(){
 }
 
 /*
- * Applellée par le DashBoard quand une autre gauge est ouverte pour ajouter une mission a cette gauge.
+ * Applellée quand le DashBoard souhaite ajouter une mission à une gauge. 
+ * Vérifie si la mission n'existe pas déjà.
  */
 Gauge.prototype.addMission = function(data) {
-	this.missions.push(new Mission(data));
+
+	var exist = false;
+	var i = 0;
+
+	while( !exist && i < this.missions.length){
+		if(this.missions[i].missionType == data.id){
+			exist = true;	
+		}
+		i++;
+	}
+
+	if(!exist){
+		this.missions.push(new Mission(data));
+	}
 };
 
+/*
+ * true/false en fonction du taux de ventes
+ */
 Gauge.prototype.isPeakSellsDay = function() {
 	var totalSells = this.automateSells+this.ticketWindowSells; 
 	return (totalSells/this.gaugeSellMax)*100 > 60;
 };
 
+/*
+ * true/false en fonction de l'affluence
+ */
 Gauge.prototype.isPeakCrowdsDay = function() {
 	return (this.crowds/this.gaugeMax)*100 > 80;
 };
@@ -195,7 +216,7 @@ Gauge.prototype.isPeakCrowdsDay = function() {
    #################### */
 
 
-Gauge.prototype.getStateOfGauge = function(isActive, isToday){
+Gauge.prototype.setStateOfGauge = function(isActive, isToday){
 	this.isActive = isActive;
 	this.isToday = isToday;
 };

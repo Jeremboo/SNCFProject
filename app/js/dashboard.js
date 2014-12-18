@@ -31,12 +31,12 @@ Dashboard.prototype.createDashboard = function(data){
 		var gauge = new Gauge(data.maxCrowds, data.maxSells, this.days[i]);
 
 		if(new Date(that.days[i].day).getTime() > todayTimeStamp){
-			gauge.getStateOfGauge(true, false);
+			gauge.setStateOfGauge(true, false);
 		} else if( new Date(that.days[i].day).getTime() < todayTimeStamp) {
-			gauge.getStateOfGauge(false, false);
+			gauge.setStateOfGauge(false, false);
 		} else {
 			that.gaugeTodayNbr = i;
-			gauge.getStateOfGauge(true, true);
+			gauge.setStateOfGauge(true, true);
 		}
 
 		this.searchPreventiveMissions(gauge);	
@@ -125,30 +125,30 @@ Dashboard.prototype.searchPreventiveMissions = function(gauge){
 		dataOfMission.id = "MONNAYEUR";
 		dataOfMission.howManyDaysAfter = 0;
 		dataOfMission.title = "Vérifier les monnayeurs";
-		dataOfMission.icon = "";
+		dataOfMission.icon = "icon-machine";
 		dataOfMission.titleDescription = "Risque de saturation des monnayeurs";
-		dataOfMission.description = "Des problèmes avec les monnayeurs risque de survenir à cause des jours de pointes.";
+		dataOfMission.description = "Des problèmes avec les monnayeurs risquent de survenir à cause des jours de pointe.";
 		dataOfMission.parameters[0].title = "-10mins";
-		dataOfMission.parameters[0].descrition = "de fil d'attente";
+		dataOfMission.parameters[0].description = "de fil d'attente";
 		dataOfMission.parameters[1].title = "+5%";
-		dataOfMission.parameters[1].descrition = "de ventes";
+		dataOfMission.parameters[1].description = "de ventes";
 		dataOfMission.parameters[2].title = "+50%";
-		dataOfMission.parameters[2].descrition = "de sourires chez les voyageurs";
+		dataOfMission.parameters[2].description = "de sourires chez les voyageurs";
 		this.addMission(dataOfMission);
 
 		// ANNONCE
 		dataOfMission.id = "ANNONCE";
 		dataOfMission.howManyDaysAfter = 5;
 		dataOfMission.title = "Annonce préventive";
-		dataOfMission.icon = "";
+		dataOfMission.icon = "icon-micro";
 		dataOfMission.titleDescription = "faire une annonce préventive";
-		dataOfMission.description = "Un pic d'affluence est à venir, faire une annonce pour prévenir les usagers d'anticiper leur rechargement.";
+		dataOfMission.description = "Un pic d'affluence est à venir, prévenir les voyageurs d'anticiper leur rechargement par le biais d'une annonce.";
 		dataOfMission.parameters[0].title = "-30mins";
-		dataOfMission.parameters[0].descrition = "d'attente en jour de pointe";
+		dataOfMission.parameters[0].description = "d'attente en jour de pointe";
 		dataOfMission.parameters[1].title = "+5%";
-		dataOfMission.parameters[1].descrition = "de ventes";
+		dataOfMission.parameters[1].description = "de ventes";
 		dataOfMission.parameters[2].title = "+50%";
-		dataOfMission.parameters[2].descrition = "de sourires chez les voyageurs";
+		dataOfMission.parameters[2].description = "de sourires chez les voyageurs";
 		this.addMission(dataOfMission);
 	}
 
@@ -157,15 +157,15 @@ Dashboard.prototype.searchPreventiveMissions = function(gauge){
 		dataOfMission.id = "ORIENTATION";
 		dataOfMission.howManyDaysAfter = 0;
 		dataOfMission.title = "Orienter les voyageurs";
-		dataOfMission.icon = "";
+		dataOfMission.icon = "icon-user";
 		dataOfMission.titleDescription = "Dédier un agent pour orienter les voyageurs";
 		dataOfMission.description = "Un pic d'affluence en gare est à venir, de nombreux voyageurs circuleront. Afin de fluidifier le passage, un agent serait nécessaire.";
 		dataOfMission.parameters[0].title = "-30mins";
-		dataOfMission.parameters[0].descrition = "d'attente en gare";
+		dataOfMission.parameters[0].description = "d'attente en gare";
 		dataOfMission.parameters[1].title = "-30%";
-		dataOfMission.parameters[1].descrition = "de foules";
+		dataOfMission.parameters[1].description = "de foule";
 		dataOfMission.parameters[2].title = "+20%";
-		dataOfMission.parameters[2].descrition = "de satisfaction";
+		dataOfMission.parameters[2].description = "de satisfaction";
 		this.addMission(dataOfMission);
 	}
 	
@@ -182,87 +182,87 @@ Dashboard.prototype.searchPreventiveMissions = function(gauge){
 				pendant ces jours en guiget et machine. Un bon brief et une bonne préparation 
 				permetrait à l'équipe d'être plus efficace.
 				*/
-					dataOfMission.id = "BRIEFEQUIPE";
+					dataOfMission.id = "BRIEF";
 					dataOfMission.howManyDaysAfter = 1;
 					dataOfMission.title = "Briefer l'équipe";
-					dataOfMission.icon = "";
+					dataOfMission.icon = "icon-micro";
 					dataOfMission.titleDescription = "Des problèmes de ventes vont survenir";
-					dataOfMission.description = "Briefer l'équipe permettrait d'anticiper les problèmes liés aux ventes qui vont potentiellement survenir dû à la forte afflucence.";
+					dataOfMission.description = "Briefer l'équipe permettrait d'anticiper les problèmes liés aux ventes qui vont potentiellement survenir dûs à la forte afflucence.";
 					dataOfMission.parameters[0].title = "-10mins";
-					dataOfMission.parameters[0].descrition = "de files d'attente";
+					dataOfMission.parameters[0].description = "de files d'attente";
 					dataOfMission.parameters[1].title = "+10%";
-					dataOfMission.parameters[1].descrition = "de ventes";
+					dataOfMission.parameters[1].description = "de ventes";
 					dataOfMission.parameters[2].title = "-20%";
-					dataOfMission.parameters[2].descrition = "de stress";
+					dataOfMission.parameters[2].description = "de stress";
 					break;
 				case 'Matériel' :
-					dataOfMission.id = "";
+					dataOfMission.id = "VERIF";
 					dataOfMission.howManyDaysAfter = 2;
 					dataOfMission.title = "Vérifier les bornes";
-					dataOfMission.icon = "";
+					dataOfMission.icon = "icon-machine";
 					dataOfMission.titleDescription = "Vérifier l'état des bornes";
 					dataOfMission.description = "Vérifier l'état des machines en gare afin d'anticiper les problèmes possibles et l'affluence des voyageurs aux points de vente.";
 					dataOfMission.parameters[0].title = "-20mins";
-					dataOfMission.parameters[0].descrition = "de files d'attente";
+					dataOfMission.parameters[0].description = "de files d'attente";
 					dataOfMission.parameters[1].title = "+20%";
-					dataOfMission.parameters[1].descrition = "de ventes";
+					dataOfMission.parameters[1].description = "de ventes";
 					dataOfMission.parameters[2].title = "+70%";
-					dataOfMission.parameters[2].descrition = "de satisfaction chez les voyageurs";
+					dataOfMission.parameters[2].description = "de satisfaction chez les voyageurs";
 					break;
 				case 'Applicatif' :
-					dataOfMission.id = "";
+					dataOfMission.id = "PREPARATION";
 					dataOfMission.howManyDaysAfter = 1;
 					dataOfMission.title = "Préparer une équipe";
-					dataOfMission.icon = "";
+					dataOfMission.icon = "icon-user";
 					dataOfMission.titleDescription = "Préparer une équipe à l'aide des voyageurs";
 					dataOfMission.description = "Une personne devra être dédiée à l'aide aux voyageurs lors de l'utilisation des bornes en cas d'erreur afin de faciliter le flux de vente.";
 					dataOfMission.parameters[0].title = "-10mins";
-					dataOfMission.parameters[0].descrition = "de files d'attente";
+					dataOfMission.parameters[0].description = "de files d'attente";
 					dataOfMission.parameters[1].title = "+5%";
-					dataOfMission.parameters[1].descrition = "de ventes";
+					dataOfMission.parameters[1].description = "de ventes";
 					dataOfMission.parameters[2].title = "+75%";
-					dataOfMission.parameters[2].descrition = "de sourires chez les voyageurs";
+					dataOfMission.parameters[2].description = "de sourires chez les voyageurs";
 					break;
 				case 'Après-vente' :
-					dataOfMission.id = "BRIEFEQUIPE";
+					dataOfMission.id = "BRIEF";
 					dataOfMission.howManyDaysAfter = 1;
 					dataOfMission.title = "Briefer l'équipe";
-					dataOfMission.icon = "";
-					dataOfMission.titleDescription = "Le service après-vente sera solicité";
-					dataOfMission.description = "Prévenir l'équipe permettrait aux agents d'être plus coopératif et à l'écoute des voyageurs.";
+					dataOfMission.icon = "icon-micro";
+					dataOfMission.titleDescription = "Le service après-vente sera sollicité";
+					dataOfMission.description = "Prévenir l'équipe permettrait aux agents d'être plus coopératifs et à l'écoute des voyageurs.";
 					dataOfMission.parameters[0].title = "-10mins";
-					dataOfMission.parameters[0].descrition = "de conflits";
+					dataOfMission.parameters[0].description = "de conflits";
 					dataOfMission.parameters[1].title = "+30%";
-					dataOfMission.parameters[1].descrition = "de satisfaction";
+					dataOfMission.parameters[1].description = "de satisfaction";
 					dataOfMission.parameters[2].title = "+50%";
-					dataOfMission.parameters[2].descrition = "de sourires chez les voyageurs";
+					dataOfMission.parameters[2].description = "de sourires chez les voyageurs";
 				case 'Alarming' :
-					dataOfMission.id = "";
+					dataOfMission.id = "PREPARATION";
 					dataOfMission.howManyDaysAfter = 1;
 					dataOfMission.title = "Préparer une équipe";
-					dataOfMission.icon = "";
+					dataOfMission.icon = "icon-user";
 					dataOfMission.titleDescription = "Préparer une équipe à l'aide des voyageurs";
 					dataOfMission.description = "Une personne devra être dédiée à l'aide aux voyageurs lors de l'utilisation des bornes en cas d'erreur afin de faciliter le flux de vente.";
 					dataOfMission.parameters[0].title = "-10mins";
-					dataOfMission.parameters[0].descrition = "de files d'attente";
+					dataOfMission.parameters[0].description = "de files d'attente";
 					dataOfMission.parameters[1].title = "+5%";
-					dataOfMission.parameters[1].descrition = "de ventes";
+					dataOfMission.parameters[1].description = "de ventes";
 					dataOfMission.parameters[2].title = "+75%";
-					dataOfMission.parameters[2].descrition = "de sourires chez les voyageurs";	
+					dataOfMission.parameters[2].description = "de sourires chez les voyageurs";	
 					break;
 				default :
-					dataOfMission.id = "";
+					dataOfMission.id = "VERIF";
 					dataOfMission.howManyDaysAfter = 3;
 					dataOfMission.title = "Vérifier les bornes";
-					dataOfMission.icon = "";
+					dataOfMission.icon = "icon-machine";
 					dataOfMission.titleDescription = "Vérifier l'état des bornes";
 					dataOfMission.description = "Vérifier l'état des machines en gare afin d'anticiper les problèmes possibles et l'affluence des voyageurs aux points de vente.";
 					dataOfMission.parameters[0].title = "-20mins";
-					dataOfMission.parameters[0].descrition = "de files d'attente";
+					dataOfMission.parameters[0].description = "de files d'attente";
 					dataOfMission.parameters[1].title = "+20%";
-					dataOfMission.parameters[1].descrition = "de ventes";
+					dataOfMission.parameters[1].description = "de ventes";
 					dataOfMission.parameters[2].title = "+70%";
-					dataOfMission.parameters[2].descrition = "de satisfaction chez les voyageurs";	
+					dataOfMission.parameters[2].description = "de satisfaction chez les voyageurs";	
 					break;
 			}
 			this.addMission(dataOfMission);
@@ -272,7 +272,6 @@ Dashboard.prototype.searchPreventiveMissions = function(gauge){
 
 Dashboard.prototype.addMission = function(data){
 
-	//TODO : faire aussi un test si cette Mission n'est pas déjà créées
 	if(this.gauges.length > data.howManyDaysAfter){
 		this.gauges[this.gauges.length - data.howManyDaysAfter -1].addMission(data);
 	}

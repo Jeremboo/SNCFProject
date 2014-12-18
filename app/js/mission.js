@@ -25,33 +25,31 @@ function Mission(data){
  */
 Mission.prototype.createMission = function(){
 
-	//TODO : faire le SVG.
-
 	return '<div class="Mission">'+
 		'<button class="Mission-name">'+this.title+'</button>'+
-		//'<svg class="Mission-target"></svg>'+
 	'</div>';
 
+};
+
+Mission.prototype.createSVG = function() {
+	var gaugeSize = document.getElementsByClassName('Gauge')[0].offsetWidth;
+	var widthStoke = gaugeSize*this.howManyDaysAfter-(gaugeSize/2);
+	var DOMSVG = '<svg class="Mission-target" height="'+gaugeSize*this.howManyDaysAfter+'" width="500">'+
+		  '<line x1="7" y1="0" x2="'+widthStoke+'" y2="0" style="stroke:rgb(255,255,255);stroke-width:1" />'+
+		  '<line x1="'+widthStoke+'" y1="0" x2="'+widthStoke+'" y2="30" style="stroke:rgb(255,255,255);stroke-width:1" />'+
+		'</svg>';
+	console.log(this.howManyDaysAfter)
+	this.DOMMission.innerHTML += DOMSVG;
 };
 
 Mission.prototype.addEvents = function(DOMMission){
 	var that = this;
 	this.DOMMission = DOMMission;
+	this.createSVG(); //a replacer
 	this.DOMMission.addEventListener('click',function(){
-		that.header.setMissionsValues(that.title, that.titleDescription, that.description, that.parameters);
+		that.header.setMissionsValues(that.title, that.icon, that.titleDescription, that.description, that.parameters);
 		that.header.showMissionsValues();
 	});
-}
-
-
-Mission.prototype.open = function(e) {
-	this.header.showMissionsValues();
-	//TODO : donner cette méthode au header pour qui s'ouvre dans ses boutons.
-	//TODO : appeller this.header.setValuesMissions()
-};
-
-Mission.prototype.close = function() {
-	//this.DOMMission.removeEventListener('click',this.open);
 };
 
 

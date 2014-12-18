@@ -15,7 +15,7 @@ var _STATIONS = "api/stations";
 
 /* INIT */
 
-var today = new Date(2014, 1, 26); //On triche avec une date de mars pour être conforme au données.
+var today = new Date(2014, 1, 25); //On triche avec une date de mars pour être conforme au données.
 var board = [];
 var stationName = null;
 var request = new AjaxRequest();
@@ -35,6 +35,7 @@ request.post({url : URL+_STATIONS}, function(err, datas){
 		popUpConnexion.showPopUp();
 
 		autoCpltrStation.setSuggestionsList(datas);
+		autoCpltrStation.placeholder("où travaillez-vous ?");
 
 		document.querySelector("#popup-connexion button").addEventListener('click',showDashboard,false);
 		autoCpltrStation.onEnter(showDashboard);

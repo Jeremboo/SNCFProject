@@ -6,11 +6,13 @@ function Header(){
 	this.missionsValuesShowed = false;
 }
 
+/* 
+ * Ajoute les évènements
+ */
 Header.prototype.addEvent = function(){
 	var that = this;
 
 	content.showMissions.addEventListener('click',function(e){
-		console.log("gogo")
 		if(!that.missionsValuesShowed){
 			that.showMissionsValues();
 		} else {
@@ -119,10 +121,16 @@ Header.prototype.setValuesGauge = function(nbrMissions, missionName, nbrTicketWi
 /*
  * Remplit les détails des valeurs de mission
  */
-Header.prototype.setMissionsValues = function(title, titleDescription, description, parameters) {
+Header.prototype.setMissionsValues = function(title, icon, titleDescription, description, parameters) {
 	content.missionTitle.innerHTML = title;
+	content.missionIcon.className = "MissionHeader-missionIcon "+icon;
 	content.missionTitleDescription.innerHTML = titleDescription;
 	content.missionDescription.innerHTML = description;
+	for (var i = 0; i < content.missionsParameterTitle.length; i++) {
+		console.log(parameters);
+		content.missionsParameterTitle[i].innerHTML = parameters[i].title;
+		content.missionsParameterDescription[i].innerHTML = parameters[i].description;
+	};
 };
 
 

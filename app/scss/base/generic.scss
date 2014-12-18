@@ -47,3 +47,49 @@ width: 8.33333333%;
 ._clear {
 	clear: both;
 }
+
+//For font icone
+[class^="icon-"], [class*=" icon-"] {
+	font-family: 'sncf';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-arrow-down:before {
+	content: "\e600";
+}
+.icon-arrow_left:before {
+	content: "\e601";
+}
+.icon-arrow_right:before {
+	content: "\e602";
+}
+.icon-arrow_top:before {
+	content: "\e603";
+}
+.icon-check:before {
+	content: "\e604";
+}
+.icon-cross:before {
+	content: "\e605";
+}
+.icon-machine:before {
+	content: "\e606";
+}
+.icon-micro:before {
+	content: "\e607";
+}
+.icon-plus:before {
+	content: "\e608";
+}
+.icon-user:before {
+	content: "\e609";
+}

@@ -19,11 +19,11 @@
 	}
 
 	//col 1
-	&-title, &-wrapperLogo {
-		float : left;
+	&-title, &-wrapperIcon {
+		display: inline-block;
+		vertical-align: middle;
 		text-align : right;
-		color : $lightPurple;
-		font-size : 2em;
+		color : $missionsColor;
 		text-transform: uppercase;
 
 	}
@@ -35,20 +35,30 @@
 		margin : 11% $col1;
 	}
 
-	&-wrapperLogo {
-		border : 1px solid $lightPurple;
+	&-wrapperIcon {
+		border : 1px solid $grey;
 		border-radius : 50%;
 		width : 80px;
 		height : 80px;
-		margin : 11% 0;
+		margin : 10% 0;
 	}
 
-	&-missionLogo {
-		width : 80%;
-		height : 80%;
-		margin : 10%;
+	&-missionIcon {
+		width : 70%;
+		height : 70%;
+		margin : 15%;
 		border-radius : 50%;
-		background-color : $lightPurple;
+		background-color : $missionsColor;
+
+		&:before {
+			display: block;
+			width: 100%;
+			height: 100%;
+			text-align: center;
+			padding: 25% 0;
+			font-size: 1.6em;
+			color : $white;
+		}
 	}
 
 	//col2
@@ -60,7 +70,7 @@
 
 	&-titleDescription {
 		margin-top : 5%;
-		color : $lightPurple;
+		color : $missionsColor;
 		font-family : 'Avenir-Heavy';
 		text-transform : uppercase;
 	}
@@ -85,15 +95,13 @@
 
 	&-parameterTitle {
 		font-family : 'Avenir-Heavy';
-		color : $lightPurple;
-		font-size : 1.4em;
+		color : $missionsColor;
+		font-size : 1.3em;
 	}
 
 	&-parameterDescription {
-		color : $lightPurple;
+		color : $missionsColor;
 		line-height: 16px;
 		font-size: 0.85em;
 	}
-
-
 }

@@ -25,10 +25,11 @@ module.exports = {
 	veil : document.getElementById('veil'),
 
 	missionTitle : document.getElementById('mission-title'),
+	missionIcon : document.getElementById('mission-icon'),
 	missionTitleDescription : document.getElementById('mission-title-description'),
 	missionDescription : document.getElementById('mission-description'),
-	missionParameterTitle : document.getElementsByClassName('MissionHeader-parameterTitle'),
-	missionParameterDescription : document.getElementsByClassName('MissionHeader-parameterDescription'),
+	missionsParameterTitle : document.getElementsByClassName('MissionHeader-parameterTitle'),
+	missionsParameterDescription : document.getElementsByClassName('MissionHeader-parameterDescription'),
 	validateMission : document.getElementById('validate-mission'),
 
 	dashboardWrapper : document.getElementById('dashboard-wrapper'),

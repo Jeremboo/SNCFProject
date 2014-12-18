@@ -29,6 +29,8 @@
 	}
 
 	&-title {
+		font-size: 1.2em;
+		line-height: 24px;
 		font-family : 'Avenir-Heavy';
 		margin : 11% $col1;
 	}
@@ -53,21 +55,20 @@
 	&-titleDescription, &-description {
 		width : 80%;
 		margin : auto;
+		line-height: 18px;
 	}
 
 	&-titleDescription {
-		text-align : center;
 		margin-top : 5%;
 		color : $lightPurple;
 		font-family : 'Avenir-Heavy';
-		font-size : 1.2em;
 		text-transform : uppercase;
 	}
 
 	&-description {
+		font-size: 0.85em;
 		margin-top : 5px;
-		line-height : 20px;
-		text-align : justify;
+		line-height : 16px;
 	}
 
 	//col3
@@ -85,11 +86,13 @@
 	&-parameterTitle {
 		font-family : 'Avenir-Heavy';
 		color : $lightPurple;
-		font-size : 1.2em;
+		font-size : 1.4em;
 	}
 
 	&-parameterDescription {
 		color : $lightPurple;
+		line-height: 16px;
+		font-size: 0.85em;
 	}
 
 

@@ -46,13 +46,11 @@ Gauge.prototype.createGauge = function(){
 	if(this.isActive){
 		//TODO : mettre les logos des missions réalisée.
 		this.nbrOfMissions = this.missions.length;
-		this.nameOfMissions = "Missions";
 	} else {
 		hold = " hold";
 		//TODO : nbrOfMissions deviens les missions qui ont été réaliser pour améliorer les jours actifs.
 		//TODO : mettre les logos des missions réalisée.
 		this.nbrOfMissions = "0/"+this.missions.length;
-		this.nameOfMissions = "MISSIONS REALISEES";
 	}
 
 	if(this.isToday){

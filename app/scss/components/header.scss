@@ -59,19 +59,25 @@
 	max-width: $col4 ;
 	height: 100%;
 	opacity: 0;
+	padding: 0 8px;
+	border-right: 1px solid $grey;
+
+	&-number, &-text {
+		display: inline-block;
+		vertical-align: middle;
+	}
 
 	&-number {
-		display: inline-block;
-		vertical-align: top;
 		color : $lightPurple;
-		font-size: 1.4em;
+		font-size: 1.3em;
+		font-weight: bold;
 	}
 
 	&-text {
-		display: inline-block;
 		max-width: 80px;
 		font-size: 0.7em;
 		text-transform: uppercase;
+		line-height: 13px;
 	}
 
 	&-openMission {

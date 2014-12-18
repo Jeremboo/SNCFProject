@@ -177,11 +177,6 @@ Dashboard.prototype.searchPreventiveMissions = function(gauge){
 
 			switch(dirsProblems[i].categorisationTheme){
 				case 'Vente' :
-				/* Brief d'équipe sur les ventes : 
-				Des problèmes vont surrement subvenir pour les ventes
-				pendant ces jours en guiget et machine. Un bon brief et une bonne préparation 
-				permetrait à l'équipe d'être plus efficace.
-				*/
 					dataOfMission.id = "BRIEF";
 					dataOfMission.howManyDaysAfter = 1;
 					dataOfMission.title = "Briefer l'équipe";
@@ -270,6 +265,9 @@ Dashboard.prototype.searchPreventiveMissions = function(gauge){
 	}
 };
 
+/*
+ * Ajoute une mission a une gauge précise
+ */
 Dashboard.prototype.addMission = function(data){
 
 	if(this.gauges.length > data.howManyDaysAfter){

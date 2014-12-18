@@ -21,7 +21,6 @@ Header.prototype.addEvent = function(){
 	});
 
 	content.veil.addEventListener('click',this.hideMissionsValues);
-
 	content.validateMission.addEventListener('click',this.hideMissionsValues);
 };
 
@@ -127,7 +126,6 @@ Header.prototype.setMissionsValues = function(title, icon, titleDescription, des
 	content.missionTitleDescription.innerHTML = titleDescription;
 	content.missionDescription.innerHTML = description;
 	for (var i = 0; i < content.missionsParameterTitle.length; i++) {
-		console.log(parameters);
 		content.missionsParameterTitle[i].innerHTML = parameters[i].title;
 		content.missionsParameterDescription[i].innerHTML = parameters[i].description;
 	};

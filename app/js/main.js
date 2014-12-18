@@ -25,21 +25,20 @@ var dashboard = new Dashboard(content.dashboardWrapper, today);
 var header = new Header();
 
 /* Events */
-header.addEvent(); // ajoute les futurs évènements
+header.addEvent(); // ajoute les futurs évènements au header déjà présent.
 
 /* Recupération de la liste des gares */
 request.post({url : URL+_STATIONS}, function(err, datas){
 
 	if(datas){
-
 		popUpConnexion.showPopUp();
 
+		//utilisation de ma librairie personnelle d'autocompletion
 		autoCpltrStation.setSuggestionsList(datas);
 		autoCpltrStation.placeholder("où travaillez-vous ?");
-
-		document.querySelector("#popup-connexion button").addEventListener('click',showDashboard,false);
 		autoCpltrStation.onEnter(showDashboard);
 
+		document.querySelector("#popup-connexion button").addEventListener('click',showDashboard,false);
 	} else {
 		console.log(err);
 	}
@@ -57,7 +56,6 @@ function showDashboard(e){
 		content.loader.className += "fadeInUp animated";
 		showGlobalDatas();
 	} else {
-		//TODO : afficher un message d'erreur quelque part
 		content.errorConnexion.innerHTML = "Donnez le nom d'une gare";
 	}
 }

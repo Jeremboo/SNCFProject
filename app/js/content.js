@@ -1,9 +1,4 @@
 module.exports = {
-	cst : {
-		UNACTIVE : 0,
-		ACTIVE : 1,
-		TODAY : 2,
-	},
 	autocompleZone : document.getElementById('autocomplete-station'),
 	popupConnexion : document.getElementById('popup-connexion'),
 	errorConnexion : document.getElementById('error-connexion'),

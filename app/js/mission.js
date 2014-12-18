@@ -31,6 +31,9 @@ Mission.prototype.createMission = function(){
 
 };
 
+/*
+ * Créer la partie SVG des missions (les flèches)
+ */
 Mission.prototype.createSVG = function() {
 	var gaugeSize = document.getElementsByClassName('Gauge')[0].offsetWidth;
 	var widthStoke = gaugeSize*this.howManyDaysAfter-(gaugeSize/2);
@@ -38,10 +41,12 @@ Mission.prototype.createSVG = function() {
 		  '<line x1="7" y1="0" x2="'+widthStoke+'" y2="0" style="stroke:rgb(255,255,255);stroke-width:1" />'+
 		  '<line x1="'+widthStoke+'" y1="0" x2="'+widthStoke+'" y2="30" style="stroke:rgb(255,255,255);stroke-width:1" />'+
 		'</svg>';
-	console.log(this.howManyDaysAfter)
 	this.DOMMission.innerHTML += DOMSVG;
 };
 
+/*
+ * Ajoute les évènements sur les missions
+ */
 Mission.prototype.addEvents = function(DOMMission){
 	var that = this;
 	this.DOMMission = DOMMission;

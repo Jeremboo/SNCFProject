@@ -44,12 +44,9 @@ Gauge.prototype.createGauge = function(){
 		sizeSells = 0.5;
 
 	if(this.isActive){
-		//TODO : mettre les logos des missions réalisée.
 		this.nbrOfMissions = this.missions.length;
 	} else {
 		hold = " hold";
-		//TODO : nbrOfMissions deviens les missions qui ont été réaliser pour améliorer les jours actifs.
-		//TODO : mettre les logos des missions réalisée.
 		this.nbrOfMissions = "0/"+this.missions.length;
 	}
 
@@ -64,7 +61,6 @@ Gauge.prototype.createGauge = function(){
 	}
 
 	for (var i = this.missions.length - 1; i >= 0; i--) {
-		console.log(this.missions.title);
 		DOMMissionsPres += this.missions[i].createMission();
 	};
 
@@ -145,6 +141,7 @@ Gauge.prototype.open = function(callbackGaugeOpened){
 
 	// Affiche les valeurs dans le Header
 	this.header.hideGaugeValues();
+
 	//WARNING : résoudre bug d'asyncronisme (le dernié a toujours animated)
 	setTimeout(function(){
 
@@ -215,7 +212,9 @@ Gauge.prototype.isPeakCrowdsDay = function() {
 	GETTERS & SETTERS
    #################### */
 
-
+/*
+ * Donne l'état de la gauge par rapport au temps (gauge activée ou non, gauge d'aujourd'hui)
+ */
 Gauge.prototype.setStateOfGauge = function(isActive, isToday){
 	this.isActive = isActive;
 	this.isToday = isToday;

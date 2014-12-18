@@ -95,9 +95,7 @@ Header.prototype.showDetailsValues = function(nbrRemaining) {
  	content.showMissions.classList.remove("close");
  	content.headerMissions.className += " hide";
  	content.veil.className += ' hide';
-
-
- 	 this.missionsValuesShowed = false;
+ 	this.missionsValuesShowed = false;
  };
 
 
@@ -121,8 +119,10 @@ Header.prototype.setValuesGauge = function(nbrMissions, missionName, nbrTicketWi
 /*
  * Remplit les détails des valeurs de mission
  */
-Header.prototype.setMissionsValues = function() {
-	console.log('TODO');
+Header.prototype.setMissionsValues = function(title, titleDescription, description, parameters) {
+	content.missionTitle.innerHTML = title;
+	content.missionTitleDescription.innerHTML = titleDescription;
+	content.missionDescription.innerHTML = description;
 };
 
 

@@ -1,4 +1,3 @@
-
 module.exports = {
 	cst : {
 		UNACTIVE : 0,
@@ -25,8 +24,9 @@ module.exports = {
 	headerMissions : document.getElementById('header-missions'),
 	veil : document.getElementById('veil'),
 
+	missionTitle : document.getElementById('mission-title'),
 	missionTitleDescription : document.getElementById('mission-title-description'),
-	misisonDescription : document.getElementById('mission-description'),
+	missionDescription : document.getElementById('mission-description'),
 	missionParameterTitle : document.getElementsByClassName('MissionHeader-parameterTitle'),
 	missionParameterDescription : document.getElementsByClassName('MissionHeader-parameterDescription'),
 	validateMission : document.getElementById('validate-mission'),

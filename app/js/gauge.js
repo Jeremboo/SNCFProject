@@ -17,20 +17,18 @@ function Gauge(gaugeMax, sellsMax, datas){
 	this.dirsProblems = datas.dirsProblems;
 	this.DOMGauge = "";
 	this.DOMMissions = "";
-	this.typeGauge = false;
+	this.isActive = false;
+	this.isToday = false;
 	this.opened = false;
-	this.preventiveMissions = [];
-	this.missionsToDo = [];
-	this.missionsShowed = [];
-	this.nbrOfMissions = "";
-	this.nameOfMissions = "";
+	this.missions = [];
+	this.nbrOfMissions = -1;
+	this.nameOfMissions = "MISSIONS";
 };
 
 /*
  * Créer les balises d'une gauge avec les valeurs intégrées en fonction du type de Gauge (UNACTIVE/TODAY/ACTIVE)
  */ 
-Gauge.prototype.createGauge = function(type){
-	this.typeGauge = type;
+Gauge.prototype.createGauge = function(){
 	var hold = "";
 	var today = "";
 	var level = "";
@@ -38,46 +36,39 @@ Gauge.prototype.createGauge = function(type){
 	var totalSells = this.automateSells+this.ticketWindowSells; 
 	var sizeCrowds = (this.crowds/this.gaugeMax)*100;
 	var sizeSells = (totalSells/this.gaugeSellMax)*100;
+	//WARNING : la gauge du trafique (crowds) max n'est plus affichée.
 
 	if(sizeCrowds < 0.5)
 		sizeCrowds = 0.5;
 	if(sizeSells < 0.5)
 		sizeSells = 0.5;
-	
-	switch(this.typeGauge){
-		case content.cst.UNACTIVE :
-			hold = " hold";
-			//TODO : nbrOfMissions deviens les missions qui ont été réaliser pour améliorer les jours actifs.
-			//TODO : mettre les logos des missions réalisée.
-			this.nbrOfMissions = this.missionsToDo.length+"/"+this.missionsToDo.length;
-			this.nameOfMissions = "MISSIONS REALISEES";
-			this.missionsShowed = this.missionsToDo;
-			break;
-		case content.cst.TODAY :
-			today = " today";
-			//TODO : mettre les logos des missions réalisée.
-			this.nbrOfMissions = this.missionsToDo.length;
-			this.nameOfMissions = "MISSIONS A FAIRE";
-			this.missionsShowed = this.missionsToDo;
-			break;
-		case content.cst.ACTIVE :
-			this.nbrOfMissions = this.preventiveMissions.length;
-			this.nameOfMissions = "MISSIONS POSSIBLES";
-			this.missionsShowed = this.preventiveMissions;
-			break;
-		default :
-			console.log("error");
-			break
+
+	if(this.isActive){
+		//TODO : mettre les logos des missions réalisée.
+		this.nbrOfMissions = this.missions.length;
+		this.nameOfMissions = "Missions préventives";
+	} else {
+		hold = " hold";
+		//TODO : nbrOfMissions deviens les missions qui ont été réaliser pour améliorer les jours actifs.
+		//TODO : mettre les logos des missions réalisée.
+		this.nbrOfMissions = this.missions.length+"/"+this.missions.length;
+		this.nameOfMissions = "MISSIONS REALISEES";
 	}
 
-	if(this.nbrOfMissions < 5){
-		level = " level-"+this.nbrOfMissions;
+	if(this.isToday){
+		today = " today";
+	}
+
+	if(this.missions.length < 5){
+		level = " level-"+this.missions.length;
 	} else {
 		level = " level-max"
 	}
-
-	for (var i = 0; i < this.missionsShowed.length; i++) {
-		DOMMissionsPres += this.missionsShowed[i].createMission();
+	console.log("-----")
+	console.log(this.day);
+	console.log(this.missions);
+	for (var i = 0; i < this.missions.length; i++) {
+		DOMMissionsPres += this.missions[i].createMission();
 	};
 
 	//TODO : faire une séparation pour les mois
@@ -135,7 +126,8 @@ Gauge.prototype.addEvents = function(DOMGauge, callbackGaugeOpened){
 
 	//Ecouteur sur les boutons missions
 	for (var i = 0; i < DOMMissions.length; i++) {
-		this.missionsShowed[i].addEvents(DOMMissions[i]);
+		console.log(this.missions[i]);
+		this.missions[i].addEvents(DOMMissions[i]);
 	};
 };
 
@@ -143,6 +135,7 @@ Gauge.prototype.addEvents = function(DOMGauge, callbackGaugeOpened){
  * Lorsque l'on clique sur la gauge, missionne la methode du dashboard en callback qui affiche les données du header.
  */ 
 Gauge.prototype.open = function(callbackGaugeOpened){
+
 	this.opened = true;
 	var that = this;
 	var DOMInfo = this.DOMGauge.querySelector('.Infos');
@@ -187,23 +180,21 @@ Gauge.prototype.close = function(){
 }
 
 /*
- * Ajouter à la guage une mission préventive (celle qui est prévue pour améliorée ce jour)
- * WARNING : puet être inutile. 
+ * Applellée par le DashBoard quand une autre gauge est ouverte pour ajouter une mission a cette gauge.
  */
-Gauge.prototype.addPreventionMission = function(type, manyDaysBefore) {
-	this.preventiveMissions.push(new Mission(type, "PreventiveMission", manyDaysBefore));
-};
-
-/*
- * Applellée par le DashBoard quand une autre gauge est ouverte.
- */
-Gauge.prototype.addMissionToDo = function(type, manyDaysAfter) {
-	this.missionsToDo.push(new Mission(type, "missionToDo", manyDaysAfter));
+Gauge.prototype.addMission = function(data) {
+	this.missions.push(new Mission(data));
 };
 
 /* ####################
 	GETTERS & SETTERS
    #################### */
+
+
+Gauge.prototype.getStateOfGauge = function(isActive, isToday){
+	this.isActive = isActive;
+	this.isToday = isToday;
+};
 
 /*
  * Retourne les dossiers de problèmes de la gauge.

@@ -2,11 +2,20 @@
 
 var Header = require('js/header');
 
-function Mission(missionType, gaugeType, howManyDays){
+function Mission(data){
+
 	this.header = new Header();
-	this.missionType = missionType;
-	this.gaugeType = gaugeType;
-	this.howManyDays = howManyDays;
+
+	this.data = data;
+
+	this.missionType = data.id;
+	this.howManyDaysAfter = data.howManyDaysAfter;
+	this.title = data.title;
+	this.icon = data.icon;
+	this.titleDescription = data.titleDescription;
+	this.description = data.description;
+	this.parameters = data.parameters;
+
 	this.done = false;
 	this.DOMMission = "";
 }
@@ -16,11 +25,10 @@ function Mission(missionType, gaugeType, howManyDays){
  */
 Mission.prototype.createMission = function(){
 
-	//TODO : en fonction du type de gauge et de l'mission prévue, créee du contenu DOM.
-
+	//TODO : faire le SVG.
 
 	return '<div class="Mission">'+
-		'<button class="Mission-name">'+this.missionType+'</button>'+
+		'<button class="Mission-name">'+this.title+'</button>'+
 		//'<svg class="Mission-target"></svg>'+
 	'</div>';
 
@@ -30,7 +38,8 @@ Mission.prototype.addEvents = function(DOMMission){
 	var that = this;
 	this.DOMMission = DOMMission;
 	this.DOMMission.addEventListener('click',function(){
-		that.header.setMissionsValues();
+
+		that.header.setMissionsValues(that.title, that.titleDescription, that.description, that.parameters);
 		that.header.showMissionsValues();
 	});
 }
@@ -43,16 +52,9 @@ Mission.prototype.open = function(e) {
 	//TODO : appeller this.header.setValuesMissions()
 };
 
-
 Mission.prototype.close = function() {
 	//this.DOMMission.removeEventListener('click',this.open);
 };
 
-Mission.prototype.addMission = function (type, ManyDaysBefore){
-
-	//TODO : ajouter une mission possible a la gauge concernée par ManyDaysBefore si cette gauge n'a pas déjà une mission du même type.
-
-	//TODO : ajouter une mission a faire sur la gauge actuelle. 
-}
 
 module.exports = Mission;

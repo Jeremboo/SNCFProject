@@ -9,7 +9,7 @@ function Dashboard(content, today){
 	this.today = new Date(today);
 	this.days = [];
 	this.gauges = [];
-	this.numberOfTodaysGauge = -1;
+	this.gaugeTodayNbr = -1;
 	this.openGauge = false;
 	this.DOMGauges = false;
 	this.DOMDates = false;
@@ -18,32 +18,35 @@ function Dashboard(content, today){
 /*
  * Ajoute au DOM les gauges avec les données nessessaires sans les afiché et les activés. 
  */ 
-Dashboard.prototype.createDashboard = function(datas){
+Dashboard.prototype.createDashboard = function(data){
 
 	var DOMBoard = "";
 	var todayTimeStamp = this.today.getTime();
 
-	this.days = datas.datasByDays;
+	this.days = data.datasByDays;
+	console.log(this.days);
 
+	//pour chaque jour, créer gauge et chercher les missions
 	for( var i = 0, j = this.days.length ; i < j ; i++){
 		var that = this;
-		var gauge = new Gauge(datas.maxCrowds, datas.maxSells, this.days[i]);
+		var gauge = new Gauge(data.maxCrowds, data.maxSells, this.days[i]);
 
-		this.searchPreventiveMissions(gauge, function(){
+		if(new Date(that.days[i].day).getTime() > todayTimeStamp){
+			gauge.getStateOfGauge(true, false);
+		} else if( new Date(that.days[i].day).getTime() < todayTimeStamp) {
+			gauge.getStateOfGauge(false, false);
+		} else {
+			that.gaugeTodayNbr = i;
+			gauge.getStateOfGauge(true, true);
+		}
 
-			if(new Date(that.days[i].day).getTime() > todayTimeStamp){
+		this.searchPreventiveMissions(gauge);	
+		this.gauges.push(gauge);
+	}
 
-				DOMBoard += gauge.createGauge(content.cst.ACTIVE);
-			} else if(new Date(that.days[i].day).getTime() < todayTimeStamp) {
-
-				that.numberOfTodaysGauge = i+1;
-				DOMBoard += gauge.createGauge(content.cst.UNACTIVE);
-			} else {
-
-				DOMBoard += gauge.createGauge(content.cst.TODAY);
-			}
-			that.gauges.push(gauge);
-		});	
+	//créer le dom des gauges
+	for( var i = 0, j = this.gauges.length ; i < j ; i++){
+		DOMBoard += this.gauges[i].createGauge();
 	}
 
 	this.DOMWrapper.innerHTML += DOMBoard;
@@ -90,43 +93,129 @@ Dashboard.prototype.showDashboard = function(nbrRemaining){
 /*
  * Recherche les actions possibles sur la gauge donnée et ajoute ces actions aux gauges concernées ainsi qu'a la gauge active 
  */
-Dashboard.prototype.searchPreventiveMissions = function(gauge, callback){
-
-	//TODO : faire les test qui permettent de définir quelles actions sont possibles et quand
+Dashboard.prototype.searchPreventiveMissions = function(gauge){
 
 	var dirsProblems = gauge.getDirsProblems();
+
+	//TODO : Mettre les missions dans une BDD et faire autrement
+	var dataOfMission = {
+		id : "",
+		howManyDaysAfter : -1,
+		title : "",
+		icon : "",
+		titleDescription : "",
+		desciption : "",
+		parameters : [
+			{
+				title : "",
+				desciption : ""
+			},
+			{
+				title : "",
+				desciption : ""
+			},
+			{
+				title : "",
+				desciption : ""
+			}
+		]
+	};
+
+	//TODO : faire les autres missions possibles (beaucoup de vente, pics de trafic)
 	
 	if(dirsProblems.length > 0){
 		for (var i = dirsProblems.length - 1; i >= 0; i--) {
+
+			//console.log(dirsProblems[i]);
+			//console.log(dirsProblems[i].categorisationTheme+" : "+dirsProblems[i]['Enoncé Problème']);
+
 			switch(dirsProblems[i].categorisationTheme){
 				case 'Vente' :
-					this.addMission(gauge, 'problème de vente', 5);
+				/* Brief d'équipe sur les ventes : 
+				Des problèmes vont surrement subvenir pour les ventes
+				pendant ces jours en guiget et machine. Un bon brief et une bonne préparation 
+				permetrait à l'équipe d'être plus efficace.
+				*/
+					dataOfMission.id = "";
+					dataOfMission.howManyDaysAfter = 5;
+					dataOfMission.title = "Vente";
+					dataOfMission.icon = "";
+					dataOfMission.titleDescription = "";
+					dataOfMission.description = "";
+					dataOfMission.parameters[0].title = "";
+					dataOfMission.parameters[0].descrition = "";
+					dataOfMission.parameters[1].title = "";
+					dataOfMission.parameters[1].descrition = "";
+					dataOfMission.parameters[2].title = "";
+					dataOfMission.parameters[2].descrition = "";
 					break;
 				case 'Matériel' :
-					this.addMission(gauge, 'problème matériel', 5);
+					dataOfMission.id = "";
+					dataOfMission.howManyDaysAfter = 5;
+					dataOfMission.title = "Matériel";
+					dataOfMission.icon = "";
+					dataOfMission.titleDescription = "";
+					dataOfMission.description = "";
+					dataOfMission.parameters[0].title = "";
+					dataOfMission.parameters[0].descrition = "";
+					dataOfMission.parameters[1].title = "";
+					dataOfMission.parameters[1].descrition = "";
+					dataOfMission.parameters[2].title = "";
+					dataOfMission.parameters[2].descrition = "";
 					break;
 				case 'Applicatif' :
-					this.addMission(gauge, 'problème applicatif', 5);
+					dataOfMission.id = "";
+					dataOfMission.howManyDaysAfter = 5;
+					dataOfMission.title = "Applicatif";
+					dataOfMission.icon = "";
+					dataOfMission.titleDescription = "";
+					dataOfMission.description = "";
+					dataOfMission.parameters[0].title = "";
+					dataOfMission.parameters[0].descrition = "";
+					dataOfMission.parameters[1].title = "";
+					dataOfMission.parameters[1].descrition = "";
+					dataOfMission.parameters[2].title = "";
+					dataOfMission.parameters[2].descrition = "";
 					break;
 				case 'Après-vente' :
-					this.addMission(gauge, "problème d'après vente", 5);
+					dataOfMission.id = "";
+					dataOfMission.howManyDaysAfter = 5;
+					dataOfMission.title = "Apres vente";
+					dataOfMission.icon = "";
+					dataOfMission.titleDescription = "";
+					dataOfMission.description = "";
+					dataOfMission.parameters[0].title = "";
+					dataOfMission.parameters[0].descrition = "";
+					dataOfMission.parameters[1].title = "";
+					dataOfMission.parameters[1].descrition = "";
+					dataOfMission.parameters[2].title = "";
+					dataOfMission.parameters[2].descrition = "";
 					break;
 				default :
-					this.addMission(gauge, 'Problème inconnue', 5);
+					dataOfMission.id = "";
+					dataOfMission.howManyDaysAfter = 5;
+					dataOfMission.title = "Defaut";
+					dataOfMission.icon = "";
+					dataOfMission.titleDescription = "";
+					dataOfMission.description = "";
+					dataOfMission.parameters[0].title = "";
+					dataOfMission.parameters[0].descrition = "";
+					dataOfMission.parameters[1].title = "";
+					dataOfMission.parameters[1].descrition = "";
+					dataOfMission.parameters[2].title = "";
+					dataOfMission.parameters[2].descrition = "";	
 					break;
 			}
+			this.addMission(dataOfMission);
 		};
 	}
-
-	callback();
 };
 
-Dashboard.prototype.addMission = function(gauge, type, manyDaysBefore){
+Dashboard.prototype.addMission = function(data){
 
-	gauge.addPreventionMission(type,manyDaysBefore);
-
-	if(this.gauges.length > manyDaysBefore){
-		this.gauges[manyDaysBefore-1].addMissionToDo(type,manyDaysBefore);
+	//TODO : faire aussi un test si cette Mission n'est pas déjà créées
+	if(this.gauges.length > data.howManyDaysAfter){
+		this.gauges[this.gauges.length - data.howManyDaysAfter].addMission(data);
 	}
 }
 
@@ -137,7 +226,7 @@ Dashboard.prototype.openGaugeForToday = function(){
 
 	var that = this;
 
-	this.gauges[this.numberOfTodaysGauge].open(function(openGauge){
+	this.gauges[this.gaugeTodayNbr].open(function(openGauge){
 		that.openGauge = openGauge;
 	});
 };

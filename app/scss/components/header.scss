@@ -9,9 +9,6 @@
 	height : 30px;
 	@include transition(height .2s ease-out);
 
-
-	
-
 	&-content {
 		float: left;
 		height: 30px;
@@ -28,14 +25,13 @@
 	&-stationName, &-small {
 		margin: 4px;
 		display : inline-block;
-	}
-
-	&-stationName {
-		font-size: 1.5em;
+		font-size: 1.4em;
+		font-family: 'Avenir-Light';
+		letter-spacing: 1px;
 	}
 
 	&-small {
-		color : $blackPurple;
+		color : $darkGrey;
 	}
 
 	&.missionOpened {

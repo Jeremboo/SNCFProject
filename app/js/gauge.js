@@ -46,12 +46,12 @@ Gauge.prototype.createGauge = function(){
 	if(this.isActive){
 		//TODO : mettre les logos des missions réalisée.
 		this.nbrOfMissions = this.missions.length;
-		this.nameOfMissions = "Missions préventives";
+		this.nameOfMissions = "Missions";
 	} else {
 		hold = " hold";
 		//TODO : nbrOfMissions deviens les missions qui ont été réaliser pour améliorer les jours actifs.
 		//TODO : mettre les logos des missions réalisée.
-		this.nbrOfMissions = this.missions.length+"/"+this.missions.length;
+		this.nbrOfMissions = "0/"+this.missions.length;
 		this.nameOfMissions = "MISSIONS REALISEES";
 	}
 
@@ -64,9 +64,7 @@ Gauge.prototype.createGauge = function(){
 	} else {
 		level = " level-max"
 	}
-	console.log("-----")
-	console.log(this.day);
-	console.log(this.missions);
+
 	for (var i = 0; i < this.missions.length; i++) {
 		DOMMissionsPres += this.missions[i].createMission();
 	};
@@ -126,7 +124,6 @@ Gauge.prototype.addEvents = function(DOMGauge, callbackGaugeOpened){
 
 	//Ecouteur sur les boutons missions
 	for (var i = 0; i < DOMMissions.length; i++) {
-		console.log(this.missions[i]);
 		this.missions[i].addEvents(DOMMissions[i]);
 	};
 };
@@ -184,6 +181,15 @@ Gauge.prototype.close = function(){
  */
 Gauge.prototype.addMission = function(data) {
 	this.missions.push(new Mission(data));
+};
+
+Gauge.prototype.isPeakSellsDay = function() {
+	var totalSells = this.automateSells+this.ticketWindowSells; 
+	return (totalSells/this.gaugeSellMax)*100 > 60;
+};
+
+Gauge.prototype.isPeakCrowdsDay = function() {
+	return (this.crowds/this.gaugeMax)*100 > 80;
 };
 
 /* ####################

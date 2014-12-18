@@ -38,7 +38,6 @@ Mission.prototype.addEvents = function(DOMMission){
 	var that = this;
 	this.DOMMission = DOMMission;
 	this.DOMMission.addEventListener('click',function(){
-
 		that.header.setMissionsValues(that.title, that.titleDescription, that.description, that.parameters);
 		that.header.showMissionsValues();
 	});
@@ -46,7 +45,6 @@ Mission.prototype.addEvents = function(DOMMission){
 
 
 Mission.prototype.open = function(e) {
-	console.log(this);
 	this.header.showMissionsValues();
 	//TODO : donner cette méthode au header pour qui s'ouvre dans ses boutons.
 	//TODO : appeller this.header.setValuesMissions()

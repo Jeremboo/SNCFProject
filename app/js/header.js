@@ -113,7 +113,7 @@ Header.prototype.setValuesGauge = function(nbrMissions, missionName, nbrTicketWi
 	content.nbrCrowds.innerHTML = new Intl.NumberFormat().format(nbrCrowds);
 	content.nbrAutomateSells.innerHTML = new Intl.NumberFormat().format(nbrAutomateSells);
 	content.nbrTicketWindowSells.innerHTML = new Intl.NumberFormat().format(nbrTicketWindowSells);
-	content.dateSelected.innerHTML = 'le '+dateSelected;
+	content.dateSelected.innerHTML = dateSelected;
 };
 
 /*

@@ -118,23 +118,33 @@
 		display: none;
 	}
 
-	&-click {
-		opacity: 0;
-	}
-
 	&-wrapper {
 		width: 100%;
-		margin: 15px 0;
+		margin: 12px 0;
 	}
 
 	&-number {
-		font-size: 2em;
+		font-size: 1.4em;
 		font-family: 'Avenir-Heavy';
+		height: 25px;
 	}
 
 	&-text {
 		text-transform: uppercase;
 		line-height: 16px;
+		font-size: 0.75em;
+	}
+
+	&-click {
+		
+		&-number {
+			font-size: 3.3em;
+			height: 63px;
+		}
+
+		&-text {
+			
+		}
 	}
 }
 

@@ -31,4 +31,15 @@
 		height: 100%;
 		background-color: $veryDarkPurple;
 	}
+
+	.AutoCompltr-suggestion.focus, .AutoCompltr-suggestion:hover {
+		background-color: white;
+		color: rgb(58, 4, 68);
+	}
+
+	input {
+		font-size: 90%;
+		letter-spacing: 1px;
+		padding: 0 10px;
+	}
 }

@@ -1,86 +1,98 @@
 'use_strict';
 
 var content = require('js/content');
-var PreventiveActions = require('js/action');
+var Header = require('js/header');
+var Mission = require('js/mission');
 var EventHandling = require('js/eventHandling');
 
-function Gauge(gaugeMax, datas){
+function Gauge(gaugeMax, sellsMax, datas){
 	this.gaugeMax = gaugeMax;
+	this.gaugeSellMax = sellsMax;
 	this.day = new Date(datas.day);
 	this.eventHandling = new EventHandling();
-	this.crowd = -9999;
+	this.header = new Header();
+	this.crowds = datas.crowds;
 	this.automateSells = datas.automateSells;
 	this.ticketWindowSells = datas.ticketWindowSells;
 	this.dirsProblems = datas.dirsProblems;
 	this.DOMGauge = "";
 	this.DOMMissions = "";
-	this.typeGauge = false;
+	this.isActive = false;
+	this.isToday = false;
 	this.opened = false;
-	this.preventiveActions = [];
-	this.actionsToDo = [];
-	this.missionsShowed = [];
-	this.nbrOfMissions = "";
-	this.nameOfMissions = "";
+	this.missions = [];
+	this.nbrOfMissions = -1;
+	this.nameOfMissions = "MISSIONS";
 };
 
-Gauge.prototype.createGauge = function(type){
-	this.typeGauge = type;
+/*
+ * Créer les balises d'une gauge avec les valeurs intégrées en fonction du type de Gauge (UNACTIVE/TODAY/ACTIVE)
+ */ 
+Gauge.prototype.createGauge = function(){
 	var hold = "";
 	var today = "";
+	var level = "";
 	var DOMMissionsPres = "";
-	var totalSells = this.automateSells+this.ticketWindowSells;
-	//TODO : afficher les gauges en fonction de l'affluence et non du prix. 
-	var size = (totalSells/this.gaugeMax)*100;
+	var totalSells = this.automateSells+this.ticketWindowSells; 
+	var sizeCrowds = (this.crowds/this.gaugeMax)*100;
+	var sizeSells = (totalSells/this.gaugeSellMax)*100;
+	//WARNING : la gauge du trafique (crowds) max n'est plus affichée.
 
-	if(size < 0.5)
-		size = 0.5;
-	
-	switch(this.typeGauge){
-		case content.cst.UNACTIVE :
-			hold = " hold";
-			//TODO : nbrOfMissions deviens les actions qui ont été réaliser pour améliorer les jours actifs.
-			//TODO : mettre les logos des actions réalisée.
-			this.nbrOfMissions = this.actionsToDo.length+"/"+this.actionsToDo.length;
-			this.nameOfMissions = "MISSIONS REALISEES";
-			this.missionsShowed = this.actionsToDo;
-			break;
-		case content.cst.TODAY :
-			today = " today";
-			//TODO : mettre les logos des actions réalisée.
-			this.nbrOfMissions = this.actionsToDo.length;
-			this.nameOfMissions = "MISSIONS A FAIRE";
-			this.missionsShowed = this.actionsToDo;
-			break;
-		case content.cst.ACTIVE :
-			this.nbrOfMissions = this.preventiveActions.length;
-			this.nameOfMissions = "MISSIONS POSSIBLES";
-			this.missionsShowed = this.preventiveActions;
-			break;
-		default :
-			console.log("error");
-			break
+	if(sizeCrowds < 0.5)
+		sizeCrowds = 0.5;
+	if(sizeSells < 0.5)
+		sizeSells = 0.5;
+
+	if(this.isActive){
+		this.nbrOfMissions = this.missions.length;
+	} else {
+		hold = " hold";
+		this.nbrOfMissions = "0/"+this.missions.length;
 	}
 
-	for (var i = 0; i < this.missionsShowed.length; i++) {
-		DOMMissionsPres += this.missionsShowed[i].createAction();
+	if(this.isToday){
+		today = " today";
+	}
+
+	if(this.missions.length < 5){
+		level = " level-"+this.missions.length;
+	} else {
+		level = " level-max"
+	}
+
+	for (var i = this.missions.length - 1; i >= 0; i--) {
+		DOMMissionsPres += this.missions[i].createMission();
 	};
 
 	//TODO : faire une séparation pour les mois
 	return '<div class="Dashboard-gauge Gauge'+hold+'">'+
 		'<div class="Gauge-wrapper">'+
-			'<div class="Gauge-gauge" style="height:'+size+'%"></div>'+
+			'<div class="Gauge-gaugeSells'+level+'" style="height:'+sizeSells+'%"></div>'+
+			'<!--<div class="Gauge-gaugeCrowds" style="height:'+sizeCrowds+'%"></div>-->'+
 		'</div>'+
 		'<div class="Gauge-infos Infos">'+
-			'<div class="Infos-wrapper">'+
-				'<div class="Infos-number">'+new Intl.NumberFormat().format(totalSells)+'</div>'+
-				'<div class="Infos-text">EUROS DE VENTES</div>'+
+			'<div class="Infos-hover animated">'+
+				'<div class="Infos-wrapper">'+
+					'<div class="Infos-number">'+new Intl.NumberFormat().format(totalSells)+'</div>'+
+					'<div class="Infos-text">EUROS DE VENTES</div>'+
+				'</div>'+
+				'<div class="Infos-wrapper">'+
+					'<div class="Infos-number">'+new Intl.NumberFormat().format(this.crowds)+'</div>'+
+					'<div class="Infos-text">VOYAGEURS</div>'+
+				'</div>'+
+				'<div class="Infos-wrapper">'+
+					'<div class="Infos-number'+level+'">'+this.nbrOfMissions+'</div>'+
+					'<div class="Infos-text">'+this.nameOfMissions+'</div>'+
+				'</div>'+
 			'</div>'+
-			'<div class="Infos-wrapper">'+
-				'<div class="Infos-number">'+this.nbrOfMissions+'</div>'+
-				'<div class="Infos-text">'+this.nameOfMissions+'</div>'+
-			'</div>'+
-			'<div class="Infos-wrapper">'+
-				DOMMissionsPres+
+			'<div class="Infos-click hide animated">'+
+				'<div class="Infos-wrapper">'+
+					'<div class="Infos-number">'+this.nbrOfMissions+'</div>'+
+					'<div class="Infos-text">'+this.nameOfMissions+'</div>'+
+				'</div>'+
+				'<div class="Infos-wrapper">'+
+					DOMMissionsPres+
+				'</div>'+
 			'</div>'+
 		'</div>'+
 		'<div class="Gauge-date Date'+today+'">'+
@@ -88,38 +100,63 @@ Gauge.prototype.createGauge = function(type){
 			'<div class="Date-number">'+this.day.getDate()+'</div>'+
 		'</div>'+
 	'</div>';
-}
+};
 
-Gauge.prototype.addEvents = function(DOMGauge, showDetailsFct){
-	var that = this;
+/*
+ * Apellée une fois la gauge dans le DOM, elle permet d'y ajouter mes écouteurs d'évènements propre à celle-ci (gauge, missions...)
+ */ 
+Gauge.prototype.addEvents = function(DOMGauge, callbackGaugeOpened){
+
 	this.DOMGauge = DOMGauge;
-	DOMGauge.addEventListener('click',function(e){
+
+	var that = this;
+	var DOMMissions = this.DOMGauge.getElementsByClassName('Mission');
+
+	this.DOMGauge.addEventListener('click',function(e){
 		if(!that.opened)
-			that.open(showDetailsFct);
+			that.open(callbackGaugeOpened);
 	});
-	//TODO bien faire la séparation de la gauge, si c'est une vieille ou une nouvelle pour ajouter les écouteurs.
+
+	//Ecouteur sur les boutons missions
+	for (var i = this.missions.length - 1; i >= 0; i--) {
+		this.missions[i].addEvents(DOMMissions[this.missions.length-1-i]);
+	};
 };
 
-Gauge.prototype.open = function(showDetailsFct){
+/*
+ * Lorsque l'on clique sur la gauge, missionne la methode du dashboard en callback qui affiche les données du header.
+ */ 
+Gauge.prototype.open = function(callbackGaugeOpened){
+
 	this.opened = true;
+	var that = this;
+	var DOMInfo = this.DOMGauge.querySelector('.Infos');
+	
+	//Infos sur gauge
 	this.DOMGauge.classList.add('opened');
-	this.DOMGauge.querySelector('.Infos').classList.add('opened');
-	this.DOMGauge.querySelector('.Infos-wrapper').classList.add('hide');
+	DOMInfo.classList.add('opened');
+	DOMInfo.querySelector('.Infos-hover').classList.add('fadeOutLeft');
+	DOMInfo.querySelector('.Infos-click').classList.remove('hide');
+	DOMInfo.querySelector('.Infos-click').classList.add('fadeInRight');
 
-	this.DOMMissions = this.DOMGauge.getElementsByClassName('Mission');
-	if(this.DOMMissions.length > 0){
-		this.showMissions();
-	}
+	// Affiche les valeurs dans le Header
+	this.header.hideGaugeValues();
 
-	content.nbrCrowds.innerHTML = new Intl.NumberFormat().format(this.crowd);
-	content.nbrAutomateSells.innerHTML = new Intl.NumberFormat().format(this.automateSells);
-	content.nbrTicketWindowSells.innerHTML = new Intl.NumberFormat().format(this.ticketWindowSells);
-	content.nbrMissions.innerHTML = this.nbrOfMissions;
-	content.missionType.innerHTML = this.nameOfMissions;
+	//WARNING : résoudre bug d'asyncronisme (le dernié a toujours animated)
+	setTimeout(function(){
 
-	showDetailsFct(this);
+		//nbrMissions, missionName, nbrTicketWindowSells, nbrAutomateSells, nbrCrowds, dateSelected
+		that.header.setValuesGauge(that.nbrOfMissions, that.nameOfMissions, that.ticketWindowSells, that.automateSells, that.crowds, that.decodeDate(that.day));
+		that.header.showGaugeValues();
+	},50);
+	
+	//Callback pour la gestion de la gauge déjà ouverte
+	callbackGaugeOpened(this);
 };
 
+/*
+ * Applellée par le DashBoard quand une autre gauge est ouverte.
+ */
 Gauge.prototype.close = function(){
 	var that = this;
 	var DOMInfo = this.DOMGauge.querySelector('.Infos');
@@ -127,52 +164,95 @@ Gauge.prototype.close = function(){
 	this.DOMGauge.classList.remove('opened');
 	DOMInfo.classList.remove('opened');
 	this.eventHandling.addTransitionendEvent(DOMInfo, function(e){
-		DOMInfo.querySelector('.Infos-wrapper').classList.remove('hide');
 
-		if(that.DOMMissions.length > 0){
-			that.closeMissions();	
-		}
+		DOMInfo.querySelector('.Infos-hover').classList.remove('fadeOutLeft');
+		DOMInfo.querySelector('.Infos-click').classList.remove('fadeInRight');
+		DOMInfo.querySelector('.Infos-click').classList.add('hide');
+
 	}, true);		
 }
 
-Gauge.prototype.addPreventionAction = function(type, manyDaysBefore) {
-	this.preventiveActions.push(new PreventiveActions(type, "PreventiveAction", manyDaysBefore));
-};
-
-Gauge.prototype.addActionToDo = function(type, manyDaysAfter) {
-	this.actionsToDo.push(new PreventiveActions(type, "actionToDo", manyDaysAfter));
-};
-
-/* 
-	GETTERS & SETTERS
+/*
+ * Applellée quand le DashBoard souhaite ajouter une mission à une gauge. 
+ * Vérifie si la mission n'existe pas déjà.
  */
+Gauge.prototype.addMission = function(data) {
 
+	var exist = false;
+	var i = 0;
+
+	while( !exist && i < this.missions.length){
+		if(this.missions[i].missionType == data.id){
+			exist = true;	
+		}
+		i++;
+	}
+
+	if(!exist){
+		this.missions.push(new Mission(data));
+	}
+};
+
+/*
+ * true/false en fonction du taux de ventes
+ */
+Gauge.prototype.isPeakSellsDay = function() {
+	var totalSells = this.automateSells+this.ticketWindowSells; 
+	return (totalSells/this.gaugeSellMax)*100 > 60;
+};
+
+/*
+ * true/false en fonction de l'affluence
+ */
+Gauge.prototype.isPeakCrowdsDay = function() {
+	return (this.crowds/this.gaugeMax)*100 > 80;
+};
+
+/* ####################
+	GETTERS & SETTERS
+   #################### */
+
+/*
+ * Donne l'état de la gauge par rapport au temps (gauge activée ou non, gauge d'aujourd'hui)
+ */
+Gauge.prototype.setStateOfGauge = function(isActive, isToday){
+	this.isActive = isActive;
+	this.isToday = isToday;
+};
+
+/*
+ * Retourne les dossiers de problèmes de la gauge.
+ */
 Gauge.prototype.getDirsProblems = function() {
 	return this.dirsProblems;
 };
 
-/*
+/* ###########
 	PRIVATE 
-*/
+   ########### */
 
-Gauge.prototype.showMissions = function(nbrRemaining){
-	var that = this;
-	nbrRemaining = nbrRemaining || this.DOMMissions.length;
-	nbrRemaining--;
-	this.missionsShowed[nbrRemaining].showAction(this.DOMMissions[nbrRemaining]);
-	if(nbrRemaining === 0)
-		return
-	setTimeout(function(){
-		that.showMissions(nbrRemaining);
-	},200);
-};
+/*
+ * Retourne une date bien formatée.
+ */
+Gauge.prototype.decodeDate = function(day){
+    year = day.getFullYear();
 
-Gauge.prototype.closeMissions = function() {
-	for (var i = 0; i < this.missionsShowed.length; i++) {
-		this.missionsShowed[i].close();
-	};
-};
+    month = day.getMonth() + 1;
+    if(month < 10) {
+		month = "0" + month ;
+    }
 
+    day = day.getDate()
+    if(day < 10){
+    	day = "0" + day;
+    }
+
+    return day+"/"+month+"/"+year;
+}
+
+/*
+ * Retourne un diminutif du jour de la semaine.
+ */
 Gauge.prototype.selectDateName = function(day){
 	switch(day){
 		case 0 :

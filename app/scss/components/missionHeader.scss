@@ -1,0 +1,107 @@
+@import "../base/variables";
+@import "../base/mixins";
+
+.MissionHeader {
+	overflow : hidden;
+
+	&-content {
+		height : 100%;
+		float : left;
+		border-right : 1px solid $darkPurple;
+	}
+
+	&-content:last-child {
+		border : 0;
+	}
+
+	&-content:nth-child(2){
+		padding: 0 20px;
+	}
+
+	//col 1
+	&-title, &-wrapperIcon {
+		display: inline-block;
+		vertical-align: middle;
+		text-align : right;
+		color : $missionsColor;
+		text-transform: uppercase;
+
+	}
+
+	&-title {
+		font-size: 1.2em;
+		line-height: 24px;
+		font-family : 'Avenir-Heavy';
+		margin : 11% $col1;
+	}
+
+	&-wrapperIcon {
+		border : 1px solid $grey;
+		border-radius : 50%;
+		width : 80px;
+		height : 80px;
+		margin : 10% 0;
+	}
+
+	&-missionIcon {
+		width : 70%;
+		height : 70%;
+		margin : 15%;
+		border-radius : 50%;
+		background-color : $missionsColor;
+
+		&:before {
+			display: block;
+			width: 100%;
+			height: 100%;
+			text-align: center;
+			padding: 25% 0;
+			font-size: 1.6em;
+			color : $white;
+		}
+	}
+
+	//col2
+	&-titleDescription, &-description {
+		width : 80%;
+		margin : auto;
+		line-height: 18px;
+	}
+
+	&-titleDescription {
+		margin-top : 5%;
+		color : $missionsColor;
+		font-family : 'Avenir-Heavy';
+		text-transform : uppercase;
+	}
+
+	&-description {
+		font-size: 0.85em;
+		margin-top : 5px;
+		line-height : 16px;
+	}
+
+	//col3
+	&-parameters {
+		height : 80%;
+		margin : 5% $col1;
+	}
+
+	&-parameter {
+		float : left;
+		height : 100%;
+		margin : 0 $col1/2;
+	}
+
+	&-parameterTitle {
+		font-family : 'Avenir-Heavy';
+		color : $missionsColor;
+		font-size : 1.3em;
+	}
+
+	&-parameterDescription {
+		color : $missionsColor;
+		line-height: 16px;
+		font-size: 0.85em;
+	}
+}

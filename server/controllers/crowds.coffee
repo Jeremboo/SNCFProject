@@ -9,7 +9,7 @@ class Crowds
         
     getPeriodicalCrowds : (stationId, firstDay, period, callback) ->
 
-        @stationId = "SANN"
+        @stationId = stationId
         @firstDay = firstDay
         @period = period
 
@@ -32,7 +32,9 @@ class Crowds
 
         date = ""+year+month+day
 
-        http.get("http://anarchy.rayanmestiri.com:9009/ecs/"+@stationId+"/"+date, (res) =>
+        console.log "http://anarchy.rayanmestiri.com/ecs/"+@stationId+"/"+date
+
+        http.get("http://anarchy.rayanmestiri.com/ecs/"+@stationId+"/"+date, (res) =>
             # console.log "Got response: " + res.statusCode
             body = ""
 
@@ -50,7 +52,7 @@ class Crowds
                 nbrRemaining++
 
                 if nbrRemaining >= @period
-                    callback("", @crowdsPeriodData)
+                    callback null, @crowdsPeriodData
                     return
 
                 @getCrowdsData nbrRemaining, callback

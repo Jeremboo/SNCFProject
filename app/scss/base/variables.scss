@@ -26,6 +26,7 @@ $col2 : 16.66666667%;
 $col1 : 8.33333333%;
 
 $gaugeWidth : 3.125%;
+//$gaugeWidth : 2.94117647%;
 $gaugeHeight : 50%;
 $gaugeBottom : 55px;
 
@@ -33,8 +34,18 @@ $gaugeBottom : 55px;
  ######### */
 
 $white : #ffffff;
+$grey : #d4d4d4;
+$darkGrey : #6d6c6c;
 $black : #000000;
-$purple : #6e1e78;
-$darkPurple : #2c0535;
-$lightPurple : #84428a;
 
+$crowdsColor : #009aa6;
+$sellsColor : #0088ce;
+$missionsColor : #A1006b;
+
+$whitePurple : #BE82C4;
+$veryLightPurple : #84428a;
+$lightPurple : #6e1e78;
+$purple : #511560;
+$darkPurple :#4D1759;
+$veryDarkPurple : #3a0444;
+$blackPurple : #2c0535;

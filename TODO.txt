@@ -1,16 +1,14 @@
 TODO
 
+VISUEL
 - ajouter la date actuelle a coté de la gare.
-- Prévoir notamment pour le jour actuelle le nombre de mission a faire pour améliorer le futur.
-- Faire différentes couleurs pour le nombre de problèmes a résoudre (si 0 blanc).
-- Ajouter a Station un tableau d'id pour utiliser l'API
-- Faire les courbes en fonction du trafic et non des ventes
-- Revoir le nom des gares dans les BDD automatesSells & ticketWindowSell
-- Ne pas empècher certaines courbes d'être affichée sans données.
+- Revoir la présentation des problèmes/missions.
+- faire une légende 
 
 
 PLUS TARD :
 
+- Présisé, améliorer les prévisions de problème.
 - Faire un enregistrement des actions faites par jour pour les revoirs au rafraichissement de la page.
 - Ajouter les accidents passagers
 - faire le système qui génère une BDD de prévisions moyennes

@@ -1,7 +1,13 @@
 @import "variables";
 
-body {
-	background-color: $purple;
+html { 
+  font-family: 'Avenir-Roman';
+  background-color: $lightPurple;
+  margin:0;
+  padding:0;
+  background: url(../img/sncf_agent.jpg) no-repeat center fixed; 
+  -webkit-background-size: cover; /* pour anciens Chrome et Safari */
+  background-size: cover; /* version standardisée */
 }
 
 ul {

@@ -1,7 +1,6 @@
 express = require 'express'
 bodyParser = require 'body-parser'
 http = require 'http'
-socketio = require 'socket.io'
 mongoose = require 'mongoose'
 
 GlobalDatasCtrl = require './server/controllers/globalDatas'
@@ -11,7 +10,6 @@ exports.startServer = (port, path, callback) ->
 
     app = express()
     server = http.createServer app
-    io = socketio.listen server
 
     station = new StationCtrl
     globalDatas = new GlobalDatasCtrl

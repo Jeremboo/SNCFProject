@@ -1,21 +1,24 @@
 TODO
 
-- ajouter la date actuelle a coté de la gare.
-- Prévoir notamment pour le jour actuelle le nombre de mission a faire pour améliorer le futur.
-- Faire différentes couleurs pour le nombre de problèmes a résoudre (si 0 blanc).
-- Ajouter a Station un tableau d'id pour utiliser l'API
-- Faire les courbes en fonction du trafic et non des ventes
-- Revoir le nom des gares dans les BDD automatesSells & ticketWindowSell
-- Ne pas empècher certaines courbes d'être affichée sans données.
+
+- Faire une BDD des missions.
+- Dupliquer les BDD sur trois mois.
+- Faire en sorte que le jours qui s'ouvre soit celui d'aujourd'hui (en trichant)
+- Faire fonctionner les gares même sans toute les données.
 
 
-PLUS TARD :
+DEV FUTUR POSSIBLES DU DASHBOARD :
 
-- Faire un enregistrement des actions faites par jour pour les revoirs au rafraichissement de la page.
-- Ajouter les accidents passagers
-- faire le système qui génère une BDD de prévisions moyennes
-- faire le système de gestion live
-- Pouvoir faire défiler la timeline
-- Faire une version Mobile
-- faire une adaptation a plusieurs navigateurs avec modernizr
+- Impacter les gauges en fonction des missions réalisées.
+- Prévoir un enregistrement des actions réalisées dans une BDD qui permet une gestion réelle.
+- Faire un système de socket qui permet de voir les missions réalisées en temps réelles. 
+- Faire un système de connection des agents avec leurs affichés.
+- Revoir les missions
+- Pouvoir faire défilé la timeline, avoir une rétrospective.
+
+
+DEV FUTUR EN PARALLELE : 
+
+- Ajouter d'autres informations & missions (accidents passagers, temps...) 
+- Faire la version Mobile qui permet de validé les missions du jour et d'avoir des détail sur le déroulement de la journée.
 

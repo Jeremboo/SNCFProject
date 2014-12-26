@@ -20,7 +20,6 @@ class GlobalDatas
     # Retourne un JSON regroupant l'enssemble des données nessessaires à la génération du dashboard.
     ### Schéma du JSON :
 
-
     ###
     getGlobalDatas : (date, stationDetails, callback) ->
 
@@ -33,6 +32,7 @@ class GlobalDatas
 
         @dashBoard = {
             dateNow : date,
+            maxCrowds : -1,
             maxSells : -1,
             datasByDays : []
         }
@@ -62,17 +62,17 @@ class GlobalDatas
                     console.log "TicketWindowSells loaded..."
                     @ticketWindowSellsData = ticketWindowSells
 
-                    ###crowds.getPeriodicalCrowds stationDetails.Gare, @firstDayAnalysed, @period, (err, crowdsPeriod) =>
+                    crowds.getPeriodicalCrowds stationDetails.stationId, @firstDayAnalysed, lastDayAnalysed, (err, crowdsPeriod) =>
                         if err
                             callback err
                             return
 
-                        console.log "crowdsPeriod loaded..."+crowdsPeriod
-                        @crowdsPeriodData = crowdsPeriod###
+                        console.log "crowdsPeriod loaded..."
+                        @crowdsPeriodData = crowdsPeriod
 
-                    console.log "Construction of Dashboard"
-                    @aggregateForPeriod (board) ->
-                        callback "", board
+                        console.log "Construction of Dashboard"
+                        @aggregateForPeriod (board) ->
+                            callback null, board
 
     #
     # Crée un json regroupant toutes les données des 3 BDD par jour
@@ -96,34 +96,32 @@ class GlobalDatas
                 date = new Date dir.date
                 return date.toDateString() == dayToDateString
 
-            ###crowdsData = _.find @crowdsPeriodData, (data) ->
+            crowdsData = _.find @crowdsPeriodData, (data) ->
                 date = new Date data.date
-                return date.toDateString() == dayToDateString###
-
+                return date.toDateString() == dayToDateString
 
             automateSells = { sum : -1 } if !automateSells
             ticketWindowSells = { sum : -1 } if !ticketWindowSells
-            #crowdsData = { crowds : -1 } if !crowdsData
+            crowdsData = { crowd : -1 } if !crowdsData
 
-
-            # prix de vente max
-            totalSells = automateSells.sum+ticketWindowSells.sum
-            @dashBoard.maxSells = totalSells if totalSells > @dashBoard.maxSells
-
+            # prix de vente max & crowds max
+            sellsTot = automateSells.sum + ticketWindowSells.sum;
+            @dashBoard.maxCrowds = crowdsData.crowds if crowdsData.crowds > @dashBoard.maxCrowds
+            @dashBoard.maxSells = sellsTot if sellsTot > @dashBoard.maxSells
 
             json = {
                 day : dayInPeriod,
                 dirsProblems : dirsProblemsOfDay,
                 automateSells : Math.round(automateSells.sum),
                 ticketWindowSells : Math.round(ticketWindowSells.sum),
-                #crowds : crowdsData.crowds
+                crowds : crowdsData.crowd
             }
 
             @dashBoard.datasByDays.push json
 
             console.log dayInPeriod.toDateString()+" : "+automateSells.sum+" automateSells, "+
-            ticketWindowSells.sum+" ticketWindowSells, "+dirsProblemsOfDay.length+" dirs pbrlm, "
-            #+crowdsData.crowds+ " persons"
+            ticketWindowSells.sum+" ticketWindowSells, "+dirsProblemsOfDay.length+" dirs pbrlm, "+
+            crowdsData.crowds+ " persons"
 
         callback @dashBoard
 

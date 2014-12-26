@@ -1,15 +1,37 @@
 http = require 'http'
 
-class Crowds
-    constructor: () ->
-        @stationId = ""
-        @firstDay = -1;
-        @period = -1
-        @crowdsPeriodData = []
-        
-    getPeriodicalCrowds : (stationId, firstDay, period, callback) ->
 
-        @stationId = "SANN"
+class Crowds
+    constructor : () ->
+        @crowdsModel = require '../models/crowdsModel'
+        # @stationId = ""
+        # @firstDay = -1;
+        # @period = -1
+        # @crowdsPeriodData = []
+
+    #
+    # Retourne un JSON des affluences par rapport à l'id d'une station et d'une période
+    getPeriodicalCrowds : (stationId, firstDay, lastDay, callback) ->
+
+        # WARNING : Mongoose décale les jours d'une journée. Il faut remédié à ça.
+        query = @crowdsModel.find null
+        query.where 'station', stationId
+        query.where('date').gte(new Date firstDay.getTime()+86400000).lte(new Date lastDay.getTime()+86400000)
+        query.exec (err, crowds) ->
+            if err
+                callback err
+                return
+            err = "Il n'y a pas de données sur l'affluence pour cette gare." if crowds.length == 0
+
+            # WARNING : Mongoose décale les jours d'une journée. Il faut remédié à ça.
+            for crowd in crowds
+                crowd.date.setDate crowd.date.getDate()-1
+
+            callback err, crowds
+        
+    ###getPeriodicalCrowds : (stationId, firstDay, period, callback) ->
+
+        @stationId = stationId
         @firstDay = firstDay
         @period = period
 
@@ -32,7 +54,9 @@ class Crowds
 
         date = ""+year+month+day
 
-        http.get("http://anarchy.rayanmestiri.com:9009/ecs/"+@stationId+"/"+date, (res) =>
+        console.log "http://anarchy.rayanmestiri.com/ecs/"+@stationId+"/"+date
+
+        http.get("http://anarchy.rayanmestiri.com/ecs/"+@stationId+"/"+date, (res) =>
             # console.log "Got response: " + res.statusCode
             body = ""
 
@@ -50,13 +74,12 @@ class Crowds
                 nbrRemaining++
 
                 if nbrRemaining >= @period
-                    callback("", @crowdsPeriodData)
+                    callback null, @crowdsPeriodData
                     return
 
                 @getCrowdsData nbrRemaining, callback
 
         ).on 'error', (e) ->
-          callback e.message
-
-    
+          callback e.message###
+   
 module.exports = Crowds

@@ -1,9 +1,8 @@
 {
   "name": "Projet SNCF",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "main": "public/app.js",
   "dependencies": {
-    "snap.svg": "~0.3.0",
     "normalize.css": "~3.0.2",
     "auto-compltr": "*",
     "animate.css": "~3.2.0"

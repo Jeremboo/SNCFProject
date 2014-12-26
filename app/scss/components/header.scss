@@ -1,17 +1,19 @@
 @import "../base/variables";
+@import "../base/mixins";
 
 .Header {
 	position: fixed;
 	top : 0;
 	left: 0;
 	width: 100%;
-	height: 55px;
-	background-color: $white;
+	height : 30px;
+	@include transition(height .2s ease-out);
 
 	&-content {
 		float: left;
 		height: 30px;
 		padding: 12px 0;
+		background-color : $white;
 	}
 
 	&-logo {
@@ -20,10 +22,34 @@
 		margin: 0 10px;
 	}
 
-	&-stationName {
-		margin: 0;
-		margin-top: 5px;
-		font-size: 1.5em;
+	&-stationName, &-small {
+		margin: 4px;
+		display : inline-block;
+		font-size: 1.4em;
+		font-family: 'Avenir-Light';
+		letter-spacing: 1px;
+	}
+
+	&-small {
+		color : $darkGrey;
+	}
+
+	&.missionOpened {
+		height : 30%;
+	}
+
+	&-missions {
+		border-bottom: 1px solid $grey;
+		height: 70%;
+		padding: 1%;
+		background-color : $white;
+		@include transition(height .2s ease-out);
+
+		&.hide{
+			height: 0;
+			border: 0;
+			padding : 0;
+		}
 	}
 }
 
@@ -33,22 +59,36 @@
 	max-width: $col4 ;
 	height: 100%;
 	opacity: 0;
+	padding: 0 8px;
+	border-right: 1px solid $grey;
+
+	&-number, &-text {
+		display: inline-block;
+		vertical-align: middle;
+	}
 
 	&-number {
-		display: inline-block;
-		vertical-align: top;
-		color : $purple;
-		font-size: 1.4em;
+		color : $lightPurple;
+		font-size: 1.3em;
+		font-weight: bold;
 	}
 
 	&-text {
-		display: inline-block;
 		max-width: 80px;
 		font-size: 0.7em;
 		text-transform: uppercase;
+		line-height: 13px;
+	}
+
+	&:nth-child(2) &-number {
+		color : $crowdsColor;
+	}
+
+	&:nth-child(3) &-number, &:nth-child(4) &-number {
+		color : $sellsColor;
+	}
+
+	&:nth-child(5) &-number {
+		color : $missionsColor;
 	}
 }
-
-/*.DetailStation+.DetailStation {
-	border-left : 2px solid purple;
-}*/

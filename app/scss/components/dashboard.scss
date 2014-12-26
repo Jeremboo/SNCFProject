@@ -48,148 +48,15 @@
 		width: 150px;
 		right: -63px;
 		bottom: 60px;
+		font-size: 0.8em;
 	}
 
 	&-max {
-		position: absolute;
 		margin: 0;
-		width: 100px;
-		top: -20px;
-		left: -45px;
+		width: 120px;
+		margin-left: -60px;
+		margin-top: -30px;
 		text-align: center;
+		line-height: 14px;
 	}
-}
-
-.Gauge {
-	position: relative;
-	border: 0 solid $purple;
-	@include transition(background-color .2s ease-out, border .4s ease-out);
-
-	&:hover{
-		background-color: $lightPurple;
-
-		.Gauge-infos:not(.opened) {
-			opacity: 1;
-			margin-left: 50px;
-		}
-	}
-
-	&-wrapper {
-		opacity: 0;
-		position: absolute;
-		width: 50%;
-		height: $gaugeHeight;
-		margin-left: 25%;
-		bottom: $gaugeBottom;
-	}
-
-	&-infos {
-		width: 200px;
-		margin-top: 70px;
-		opacity: 0;
-		@include transition(opacity .2s ease-out, margin .4s ease-out);
-	}
-
-
-	&-gauge {
-		position: absolute;
-		width: 100%;
-		background-color: $white;
-		bottom: 0;
-	}
-
-	&-date {
-		position: absolute;
-		width: 100%;
-		padding: 5px 0;
-		bottom: 5px;
-	}
-
-	&.opened {
-		background-color: $lightPurple;
-		border-right : 50px solid $lightPurple;
-	}
-
-	&.hold {
-		opacity: 0.5;
-	}
-}
-
-.Date {
-	opacity: 0;
-	color: $white;
-	text-align: center;
-
-	& > div {
-		width: 100%;
-	}
-
-	&-day{
-		text-transform: uppercase;
-		font-size: 0.5em;
-	}
-	&.today {
-		color: $purple;
-		background-color: $white;
-	}
-}
-
-.Infos {
-	color: $white;
-
-	&.opened {
-		opacity: 1;
-		margin-left: 10px;
-	}
-
-	&-over {
-		width: 100%;
-	}
-
-	&-over.hide {
-		display: none;
-	}
-
-	&-wrapper {
-		width: 100%;
-		margin: 15px 0;
-
-	}
-
-	&-wrapper.hide {
-		overflow: hidden;
-		@include animation(0s, 0.8s, fadeout);
-	}
-
-	&-number {
-		font-size: 2em;
-	}
-
-	&-text {
-		text-transform: uppercase;
-	}
-}
-
-.Mission {
-	opacity: 0;
-	margin-bottom: 6px;
-
-	&-name {
-		text-transform: uppercase;
-		background-color: transparent;
-		border: 0;
-		font-size: 0.7em;
-		opacity: 0.8;
-		@include transition(opacity .4s ease-out);
-
-		&:hover {
-			opacity: 1;
-		}
-
-		&:focus {
-			opacity: 1;
-			outline: 0;
-		}
-	}
-
 }

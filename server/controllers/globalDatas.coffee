@@ -63,6 +63,7 @@ class GlobalDatas
                     @ticketWindowSellsData = ticketWindowSells
 
                     crowds.getPeriodicalCrowds stationDetails.stationId, @firstDayAnalysed, lastDayAnalysed, (err, crowdsPeriod) =>
+
                         if err
                             callback err
                             return
@@ -102,6 +103,7 @@ class GlobalDatas
 
             automateSells = { sum : -1 } if !automateSells
             ticketWindowSells = { sum : -1 } if !ticketWindowSells
+
             crowdsData = { crowd : -1 } if !crowdsData
 
             # prix de vente max & crowds max
@@ -114,6 +116,7 @@ class GlobalDatas
                 dirsProblems : dirsProblemsOfDay,
                 automateSells : Math.round(automateSells.sum),
                 ticketWindowSells : Math.round(ticketWindowSells.sum),
+
                 crowds : crowdsData.crowd
             }
 

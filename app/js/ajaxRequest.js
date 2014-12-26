@@ -15,6 +15,10 @@ AjaxRequest.prototype.post = function(params, callback){
 		if(params.datas){
 			datas = JSON.stringify(params.datas);
 		}
+		if(params.timeout){
+			this.request.timeout = 	params.timeout;
+		}
+		
 		this.request.open("POST", params.url, true);
 		this.request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 		this.request.send(datas);

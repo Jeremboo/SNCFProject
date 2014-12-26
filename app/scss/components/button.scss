@@ -1,11 +1,55 @@
 @import "../base/variables";
+@import "../base/mixins";
 
 .Button {
 	cursor: pointer;
 	border: 0;
 	margin: 0;
 	padding: 0;
-	text-align: center;
-	font-weight: bold;
-	color : $white;
+	text-align: center;	
+
+	&:focus {
+		outline: 0;
+	}
+
+	&.popup {
+		font-family: 'Avenir-Heavy';
+		color : $white;
+		font-weight: bold;
+	}
+
+	&.header {
+		cursor: pointer;
+		font-size: 2em;
+		background-color: transparent;
+		color: $lightPurple;
+		margin-right: 8px;
+		line-height: 28px;	
+		@include transition(transform .2s ease-out);
+
+		&.close {
+			@include rotate(-45);
+		}		
+	}
+
+	&.validate {
+		width: 90%;
+		height : 25%;
+		margin: 50% 15%;
+		text-transform: uppercase;
+		background-color: transparent;
+		font-family: 'Avenir-heavy';
+		color: $missionsColor;
+		border: 1px solid $missionsColor;
+		border-radius: 2px;
+		@include transition(color .4s ease-out, background-color .4s ease-out);
+
+
+		&:hover {
+			background-color : $missionsColor;
+			color : $white;
+		}
+	}
+
+	
 }

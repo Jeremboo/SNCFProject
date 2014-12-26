@@ -2,7 +2,6 @@
 
 var EventHandling = require('js/eventHandling');
 
-
 function PopUp(popUp){
 	this.popUp = popUp;
 	this.eventHandling = new EventHandling();

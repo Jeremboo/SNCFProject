@@ -6,27 +6,63 @@
 	<link rel="stylesheet" href="css/app.css">
 </head>
 <body>
-
-	<header class="Header">
+	<div class="Veil hide" id="veil"></div>
+	<header class="Header" id="header">
+		<div class="Header-missions MissionHeader hide" id="header-missions">
+			<div class="MissionHeader-content _col3">
+				<h3 class="MissionHeader-title _col5" id="mission-title"></h3>
+				<div class="MissionHeader-wrapperIcon">
+					<div class="MissionHeader-missionIcon" id="mission-icon"></div>
+				</div>
+			</div>
+			<div class="MissionHeader-content _col4">
+				<div class="MissionHeader-titleDescription" id="mission-title-description"></div>
+				<div class="MissionHeader-description" id="mission-description"></div>
+			</div>
+			<div class="MissionHeader-content _col3">
+				<ul class="MissionHeader-parameters">
+					<li class="MissionHeader-parameter _col3">
+						<div class="MissionHeader-parameterTitle"></div>
+						<div class="MissionHeader-parameterDescription"></div>
+					</li>
+					<li class="MissionHeader-parameter _col3">
+						<div class="MissionHeader-parameterTitle"></div>
+						<div class="MissionHeader-parameterDescription"></div>
+					</li>
+					<li class="MissionHeader-parameter _col3">
+						<div class="MissionHeader-parameterTitle"></div>
+						<div class="MissionHeader-parameterDescription"></div>
+					</li>
+				</ul>
+				
+			</div>
+			<div class="MissionHeader-content _col1">
+				<button class="Button validate" id="validate-mission">valider</button>
+			</div>
+		</div>
 		<div class="Header-content _col6">
 			<img class="Header-logo" src="img/logoSNCF.svg" align="left" alt="logo SNCF">
-			<p class="Header-stationName" id="station-name"></p>
+			<h1 class="Header-stationName" id="station-name">SNCF PRÉVISIONS</h1>
+			<p class="Header-small animated" id="date-selected"></p>
 		</div>
 		<div class="Header-content _col6">
 			<ul class="Header-detailStation">
-				<li class="DetailStation">
-					<div class="DetailStation-number" id="nbr-crowds"></div>
-					<div class="DetailStation-text">VOYAGEURS EN MOYENNE</div>
+				<li class="DetailStation animated">
+					<button class="DetailStation-openMission Button header" id="show-mission">+</button>
 				</li>
-				<li class="DetailStation">
+				<li class="DetailStation animated">
+					<div class="DetailStation-number" id="nbr-crowds"></div>
+					<div class="DetailStation-text">VOYAGEURS CE JOUR</div>
+				</li>
+				<li class="DetailStation animated">
 					<div class="DetailStation-number" id="nbr-automatesells"></div>
 					<div class="DetailStation-text">€ DE VENTES EN MACHINE</div>
 				</li>
-				<li class="DetailStation">
+				<li class="DetailStation animated">
 					<div class="DetailStation-number" id="nbr-ticketwindowsells"></div>
 					<div class="DetailStation-text">€ DE VENTES EN GUICHES</div>
 				</li>
-				<li class="DetailStation">
+				<li class="DetailStation animated">
 					<div class="DetailStation-number" id="nbr-missions"></div>
 					<div class="DetailStation-text" id="mission-type">MISSIONS</div>
 				</li>
@@ -38,8 +74,10 @@
 		<div class="Dashboard-content">
 			<div class="Dashboard-wrapper" id="dashboard-wrapper">
 				<div class="Dashboard-taux Taux" id="taux">
-					<p class="Taux-details">Ventes totals / jours</p>
-					<p class="Taux-max"><span id="max-sells"></span> euros</p>
+					<!-- <p class="Taux-details">Ventes totals / jours</p> -->
+					<p class="Taux-details">Ventes totales / jours</p>
+					<!--<p class="Taux-max"><span id="max-crowds"></span> voyageurs</p>-->
+					<p class="Taux-max"><span id="max-sells"></span> € <br> de ventes</p>
 				</div>
 				<!-- div.Dashboard-gauge.Gauge*30>div.Gauge-gauge+(div.Gauge-date.Date>div.Date-day{MAR}+div.Date-number{0$}) -->
 			</div>
@@ -50,17 +88,19 @@
 	<div class="Popup hide hidden" id="popup-connexion">
 		<div class="Popup-backdrop"></div>
 		<div class="Popup-content">
-			<h2 class="Popup-title">Bienvenue</h2>
-			<form class="Popup-form Form" onSubmit="return false">
-				<ul class="Form-errors" id="form-error"></ul>
-				<div class="Form-group">
-					<label for="agentname" class="Form-label">Votre nom d'agent :</label>
-					<input name="agentname" type="text" class="Form-input">
-				</div>
-			</form>
+			<h2 class="Popup-title">BIENVENUE</h2>
+			<p class="Popup-description">Visualisez les données prévisionnelles de ventes et de l'état du trafic qui concernent votre gare.</p>
+			<p id="error-connexion" class="Popup-error"></p>
+			<ul id="loader">
+			  <li></li>
+			  <li></li>
+			  <li></li>
+			  <li></li>
+			  <li></li>
+			</ul>
 			<div class="StationSelection">
 				<div class="StationSelection-autocompleteZone" id="autocomplete-station"></div>
-				<button class="StationSelection-button Button">OK</button>
+				<button class="StationSelection-button Button popup">OK</button>
 			</div>
 		</div>
 	</div>

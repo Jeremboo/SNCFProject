@@ -7,7 +7,8 @@ stationSchema = mongoose.Schema {
     "Nb Equipement" : Number,
     "Ligne" : Number,
     "Zone" : Number,
-    "Région" : Number
+    "Région" : Number,
+    "stationId" : String
 }
 
 Station = mongoose.model 'Stations', stationSchema, 'stations'

@@ -23,6 +23,8 @@ class GlobalDatas
     ###
     getGlobalDatas : (date, stationDetails, callback) ->
 
+        #date = new Date(2014, 2, date.getDate())
+
         @firstDayAnalysed = new Date date.getTime() - (@daysShowedBefore*86400000)
         lastDayAnalysed = new Date @firstDayAnalysed.getTime() + (@period*86400000)
 
@@ -86,7 +88,7 @@ class GlobalDatas
             dayToDateString = dayInPeriod.toDateString();
 
             dirsProblemsOfDay = _.filter @dirsProblemsData, (dir) ->
-                date = new Date dir['Créé le']
+                date = new Date dir.date
                 return date.toDateString() == dayToDateString
 
             automateSells = _.find @automateSellsData, (dir) ->

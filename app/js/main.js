@@ -8,14 +8,14 @@ var Header = require('js/header');
 /* CONST */
 
 var URL = "http://localhost:3333/";
-var URL_API_PROJECT_A = "http://anarchy.rayanmestiri.com:9009/ecs/";
 var _GLOBALDATASFORTODAY = "api/globalDatasForToday";
 var _STATIONS = "api/stations";
 
 
 /* INIT */
-
-var today = new Date(2014, 1, 25); //On triche avec une date de mars pour être conforme au données.
+var t = new Date();
+var today = new Date(2014, 2, t.getDate()); 
+//var today = new Date();
 var board = [];
 var stationName = null;
 var request = new AjaxRequest();

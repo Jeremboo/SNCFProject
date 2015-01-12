@@ -10,7 +10,7 @@ class DirsProblem
 
          # WARNING : Mongoose décale les jours d'une journée. Il faut remédié à ça.
         query = @dirsProblemModel.find null
-        query.where('Créé le').gte(new Date firstDay.getTime()+86400000).lte(new Date lastDay.getTime()+86400000)
+        query.where('date').gte(new Date firstDay.getTime()+86400000).lte(new Date lastDay.getTime()+86400000)
         # TODO : refaire le filtre par station dans la requete
         query.exec (err, dirs) ->
             if err
@@ -18,11 +18,11 @@ class DirsProblem
                 return
 
             dirs = _.filter dirs, (dir) ->
-                return (dir['Nom Outil'].indexOf(stationCode) >= 0)
+                return (dir.codeTool.indexOf(stationCode) >= 0)
 
             # WARNING : Mongoose décale les jours d'une journée. Il faut remédié à ça.
             for dir in dirs
-                dir['Créé le'].setDate dir['Créé le'].getDate()-1
+                dir.date.setDate dir.date.getDate()-1
 
             callback null, dirs
 

@@ -1,8 +1,6 @@
 TODO
 
 - Faire une BDD des missions.
-- Dupliquer les BDD sur trois mois.
-- Faire en sorte que le jours qui s'ouvre soit celui d'aujourd'hui (en trichant)
 - Faire fonctionner les gares même sans toute les données.
 
 DEV FUTUR POSSIBLES DU DASHBOARD :

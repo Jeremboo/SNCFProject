@@ -172,10 +172,9 @@ Dashboard.prototype.searchPreventiveMissions = function(gauge){
 	if(dirsProblems.length > 0){
 		for (var i = dirsProblems.length - 1; i >= 0; i--) {
 
-			//console.log(dirsProblems[i]);
-			//console.log(dirsProblems[i].categorisationTheme+" : "+dirsProblems[i]['Enoncé Problème']);
+			console.log(dirsProblems[i]);
 
-			switch(dirsProblems[i].categorisationTheme){
+			switch(dirsProblems[i].catProblem){
 				case 'Vente' :
 					dataOfMission.id = "BRIEF";
 					dataOfMission.howManyDaysAfter = 1;

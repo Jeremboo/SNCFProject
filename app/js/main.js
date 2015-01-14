@@ -14,7 +14,7 @@ var _STATIONS = "api/stations";
 
 /* INIT */
 var t = new Date();
-var today = new Date(2014, 2, t.getDate()); 
+var today = new Date(2014, 1, 25); 
 //var today = new Date();
 var board = [];
 var stationName = null;
@@ -68,7 +68,7 @@ function showGlobalDatas(){
 	request.post({url : URL+_GLOBALDATASFORTODAY, datas : {station : stationName, date : today} }, function(err, datas){
 		if(datas){
 	
-			console.log(datas);
+			//console.log(datas);
 
 			//ajouter les détails de la jauge (ne fonctionne qu'avant l'insertion des gauges)
 			//content.maxCrowds.innerHTML = new Intl.NumberFormat().format(datas.board.maxCrowds);

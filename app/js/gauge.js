@@ -255,19 +255,19 @@ Gauge.prototype.decodeDate = function(day){
  */
 Gauge.prototype.selectDateName = function(day){
 	switch(day){
-		case 0 :
-			return "LUN";
 		case 1 :
-			return "MAR";
+			return "LUN";
 		case 2 :
-			return "MER";
+			return "MAR";
 		case 3 :
-			return "JEU";
+			return "MER";
 		case 4 :
-			return "VEN";
+			return "JEU";
 		case 5 :
-			return "SAM";
+			return "VEN";
 		case 6 :
+			return "SAM";
+		case 0 :
 			return "DIM";
 		default :
 			return "NaN";

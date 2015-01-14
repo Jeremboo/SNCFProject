@@ -9,7 +9,7 @@ function Mission(data){
 	this.data = data;
 
 	this.missionType = data.id;
-	this.howManyDaysAfter = data.howManyDaysAfter;
+	this.howManyDaysBefore = data.howManyDaysBefore;
 	this.title = data.title;
 	this.icon = data.icon;
 	this.titleDescription = data.titleDescription;
@@ -36,8 +36,8 @@ Mission.prototype.createMission = function(){
  */
 Mission.prototype.createSVG = function() {
 	var gaugeSize = document.getElementsByClassName('Gauge')[0].offsetWidth;
-	var widthStoke = gaugeSize*this.howManyDaysAfter-(gaugeSize/2);
-	var DOMSVG = '<svg class="Mission-target" height="'+gaugeSize*this.howManyDaysAfter+'" width="500">'+
+	var widthStoke = gaugeSize*this.howManyDaysBefore-(gaugeSize/2);
+	var DOMSVG = '<svg class="Mission-target" height="'+gaugeSize*this.howManyDaysBefore+'" width="500">'+
 		  '<line x1="7" y1="0" x2="'+widthStoke+'" y2="0" style="stroke:rgb(255,255,255);stroke-width:1" />'+
 		  '<line x1="'+widthStoke+'" y1="0" x2="'+widthStoke+'" y2="30" style="stroke:rgb(255,255,255);stroke-width:1" />'+
 		'</svg>';

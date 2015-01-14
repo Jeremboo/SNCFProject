@@ -39,8 +39,8 @@ Dashboard.prototype.createDashboard = function(data){
 			gauge.setStateOfGauge(true, true);
 		}
 
-		this.searchPreventiveMissions(gauge);	
 		this.gauges.push(gauge);
+		this.searchPreventiveMissions(gauge);	
 	}
 
 	//créer le dom des gauges
@@ -95,11 +95,13 @@ Dashboard.prototype.showDashboard = function(nbrRemaining){
 Dashboard.prototype.searchPreventiveMissions = function(gauge){
 
 	var dirsProblems = gauge.getDirsProblems();
+	
+	//console.log(gauge);
 
 	//TODO : Mettre les missions dans une BDD et faire autrement
 	var dataOfMission = {
 		id : "",
-		howManyDaysAfter : -1,
+		howManyDaysBefore : 0,
 		title : "",
 		icon : "",
 		titleDescription : "",
@@ -123,7 +125,7 @@ Dashboard.prototype.searchPreventiveMissions = function(gauge){
 	if(gauge.isPeakSellsDay()){
 		// Alarming
 		dataOfMission.id = "MONNAYEUR";
-		dataOfMission.howManyDaysAfter = 0;
+		dataOfMission.howManyDaysBefore = 1;
 		dataOfMission.title = "Vérifier les monnayeurs";
 		dataOfMission.icon = "icon-machine";
 		dataOfMission.titleDescription = "Risque de saturation des monnayeurs";
@@ -138,7 +140,7 @@ Dashboard.prototype.searchPreventiveMissions = function(gauge){
 
 		// ANNONCE
 		dataOfMission.id = "ANNONCE";
-		dataOfMission.howManyDaysAfter = 5;
+		dataOfMission.howManyDaysBefore = 5;
 		dataOfMission.title = "Annonce préventive";
 		dataOfMission.icon = "icon-micro";
 		dataOfMission.titleDescription = "faire une annonce préventive";
@@ -155,7 +157,7 @@ Dashboard.prototype.searchPreventiveMissions = function(gauge){
 	if(gauge.isPeakCrowdsDay()){
 		// ORIENTATION
 		dataOfMission.id = "ORIENTATION";
-		dataOfMission.howManyDaysAfter = 0;
+		dataOfMission.howManyDaysBefore = 0;
 		dataOfMission.title = "Orienter les voyageurs";
 		dataOfMission.icon = "icon-user";
 		dataOfMission.titleDescription = "Dédier un agent pour orienter les voyageurs";
@@ -172,12 +174,12 @@ Dashboard.prototype.searchPreventiveMissions = function(gauge){
 	if(dirsProblems.length > 0){
 		for (var i = dirsProblems.length - 1; i >= 0; i--) {
 
-			console.log(dirsProblems[i]);
+			//console.log(dirsProblems[i]);
 
 			switch(dirsProblems[i].catProblem){
 				case 'Vente' :
 					dataOfMission.id = "BRIEF";
-					dataOfMission.howManyDaysAfter = 1;
+					dataOfMission.howManyDaysBefore = 1;
 					dataOfMission.title = "Briefer l'équipe";
 					dataOfMission.icon = "icon-micro";
 					dataOfMission.titleDescription = "Des problèmes de ventes vont survenir";
@@ -191,7 +193,7 @@ Dashboard.prototype.searchPreventiveMissions = function(gauge){
 					break;
 				case 'Matériel' :
 					dataOfMission.id = "VERIF";
-					dataOfMission.howManyDaysAfter = 2;
+					dataOfMission.howManyDaysBefore = 2;
 					dataOfMission.title = "Vérifier les bornes";
 					dataOfMission.icon = "icon-machine";
 					dataOfMission.titleDescription = "Vérifier l'état des bornes";
@@ -205,7 +207,7 @@ Dashboard.prototype.searchPreventiveMissions = function(gauge){
 					break;
 				case 'Applicatif' :
 					dataOfMission.id = "PREPARATION";
-					dataOfMission.howManyDaysAfter = 1;
+					dataOfMission.howManyDaysBefore = 1;
 					dataOfMission.title = "Préparer une équipe";
 					dataOfMission.icon = "icon-user";
 					dataOfMission.titleDescription = "Préparer une équipe à l'aide des voyageurs";
@@ -219,7 +221,7 @@ Dashboard.prototype.searchPreventiveMissions = function(gauge){
 					break;
 				case 'Après-vente' :
 					dataOfMission.id = "BRIEF";
-					dataOfMission.howManyDaysAfter = 1;
+					dataOfMission.howManyDaysBefore = 1;
 					dataOfMission.title = "Briefer l'équipe";
 					dataOfMission.icon = "icon-micro";
 					dataOfMission.titleDescription = "Le service après-vente sera sollicité";
@@ -232,7 +234,7 @@ Dashboard.prototype.searchPreventiveMissions = function(gauge){
 					dataOfMission.parameters[2].description = "de sourires chez les voyageurs";
 				case 'Alarming' :
 					dataOfMission.id = "PREPARATION";
-					dataOfMission.howManyDaysAfter = 1;
+					dataOfMission.howManyDaysBefore = 1;
 					dataOfMission.title = "Préparer une équipe";
 					dataOfMission.icon = "icon-user";
 					dataOfMission.titleDescription = "Préparer une équipe à l'aide des voyageurs";
@@ -246,7 +248,7 @@ Dashboard.prototype.searchPreventiveMissions = function(gauge){
 					break;
 				default :
 					dataOfMission.id = "VERIF";
-					dataOfMission.howManyDaysAfter = 3;
+					dataOfMission.setStat = 2;
 					dataOfMission.title = "Vérifier les bornes";
 					dataOfMission.icon = "icon-machine";
 					dataOfMission.titleDescription = "Vérifier l'état des bornes";
@@ -268,9 +270,8 @@ Dashboard.prototype.searchPreventiveMissions = function(gauge){
  * Ajoute une mission a une gauge précise
  */
 Dashboard.prototype.addMission = function(data){
-
-	if(this.gauges.length > data.howManyDaysAfter){
-		this.gauges[this.gauges.length - data.howManyDaysAfter -1].addMission(data);
+	if(this.gauges.length > data.howManyDaysBefore){
+		this.gauges[this.gauges.length - 1 - data.howManyDaysBefore].addMission(data);
 	}
 }
 
